@@ -72,7 +72,9 @@ class Client {
 		
 	}
 	
-	
+	public void search() {
+		Arrays.toString(dict.entrySet().toArray());
+	}
 }
 
 
@@ -81,31 +83,36 @@ public class M1 {
 	
 	public static void main(String[] args) {
 		
-		System.out.print("1 Add client \n2 edit client");
-		
-		System.out.println("your input");
-		
-		int input = s.nextInt();
-		
-		if (input == 1) {
-			new Client();
-		}
-		
-		
-		else if (input == 2) {
-			//dict.keySet();
-			System.out.println("1 edit name \n 2 edit email \n3 edit address \n4 edit refper")
+		while (true) {
+			System.out.print("1 Add client \n2 edit client");
+			
 			System.out.println("your input");
 			
-			//int input = s.nextInt();
+			int input = s.nextInt();
 			
 			if (input == 1) {
-				//new setName();
+				new Client();
 			}
 			
+			
+			else if (input == 2) {
+				//dict.keySet();
+				System.out.println("1 edit name \n 2 edit email \n3 edit address \n4 edit refper");
+				System.out.println("your input");
+				
+				//int input = s.nextInt();
+				
+				if (input == 1) {
+					//new setName();
+				}
+				
+			}
+			
+			else if (input == 3)
+				
 		}
 		
-			
+		
 		
 				
 
