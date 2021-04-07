@@ -108,7 +108,7 @@ public class M1 {
 				
 			}
 			
-			else if (input == 3)
+			else if (input == 3);
 				
 		}
 		
