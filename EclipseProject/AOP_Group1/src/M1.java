@@ -21,6 +21,7 @@ class Client {
 	public Client() {
 		
 		Random rand = new Random();
+		//Why is the following integer needed? And isn't it risky generating random numbers?
 		int upperbound = 10000000;
 		ID = rand.nextInt(upperbound);
 		
