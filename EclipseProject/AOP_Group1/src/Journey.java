@@ -11,7 +11,7 @@ public class Journey {
 	// All journeys are stored in this linked list
 	public static final LinkedList<Journey> ALLJOURNEYS = new LinkedList();
 
-	public Journey(String orign, String destination, String contentType, String company) {
+	public Journey(String origin, String destination, String contentType, String company) {
 		this.journeyID = UUID.randomUUID().toString();
 		this.origin = origin;
 		this.destination = destination;
