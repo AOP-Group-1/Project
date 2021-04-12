@@ -32,7 +32,15 @@ Feature: Add temperature
     And container is loaded true
     When temperature is added false
     Then temperature is not stored
-    
+
+
+
+
+
+
+
+
+
 
   #@tag2
   #Scenario Outline: Title of your scenario outline
