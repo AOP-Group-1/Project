@@ -1,17 +1,6 @@
 import java.util.LinkedList;
 import java.util.UUID;
 
-class Container {
-	private String ContainerID;
-
-	public Container() {
-		this.ContainerID = UUID.randomUUID().toString();
-	}
-
-	public String getContainerID() {
-		return this.ContainerID;
-	}
-}
 
 enum criticalArea {
 	US("United States"), CHINA("People's Republic of China"), MEXICO("Mexico");

@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 
 
@@ -62,7 +63,17 @@ class ContainerStatus {
 
 class Container {
 	//public int journeyID;
+	
 	public ContainerStatus status;
+	private String ContainerID;
+
+	public Container() {
+		this.ContainerID = UUID.randomUUID().toString();
+	}
+
+	public String getContainerID() {
+		return this.ContainerID;
+	}
 	
 }
 
