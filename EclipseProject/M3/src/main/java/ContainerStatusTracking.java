@@ -13,7 +13,7 @@ these measurements to the system and the clients should be able
 to see them.
  */
 
-public class ContainerStatusTracking {
+class ContainerStatus {
 		
 	List<Integer> temp = new ArrayList<Integer>();
 	List<Integer> humi = new ArrayList<Integer>();	
@@ -60,25 +60,25 @@ public class ContainerStatusTracking {
 }
 
 
-//class Container {
-//	//public int journeyID;
-//	public ContainerStatus status;
-//	
-//}
+class Container {
+	//public int journeyID;
+	public ContainerStatus status;
+	
+}
 
-//public class ContainerStatusTracking {
-//
-//	public static void main(String[] args) {
-//		// TODO Auto-generated method stub
-//
-//		
-//		ContainerStatus cs = new ContainerStatus();
-//		System.out.println(cs.getMeasure("temperature"));
-//		cs.AddMeasure(-10, "temperature");
-//		System.out.println(cs.getMeasure("temperature"));
-//		cs.getMeasure("teststst");
-//		
-//		
-//	}
-//
-//}
+public class ContainerStatusTracking {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		
+		ContainerStatus cs = new ContainerStatus();
+		System.out.println(cs.getMeasure("temperature"));
+		cs.AddMeasure(-10, "temperature");
+		System.out.println(cs.getMeasure("temperature"));
+		cs.getMeasure("teststst");
+		
+		
+	}
+
+}

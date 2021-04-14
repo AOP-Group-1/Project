@@ -31,5 +31,11 @@ Feature: Requesting information on container
 	Scenario: User successfully asks for atmospheric pressure
 		Given a request for atmospheric pressure "string"
 		Then a list of pressures
-	
-
+		
+	Scenario: User unsuccessfully asks for category
+		Given a request for temture "string"
+		Then error message displayed
+		
+	Scenario: User asks for nothing
+		Given an empty request "string"
+		Then error message is displayed
