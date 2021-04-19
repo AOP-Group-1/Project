@@ -27,7 +27,18 @@ public class Journey {
 	private String currentLocation;
 	private LinkedList<String> travelHistory;
 	private boolean journeyComplete;
-
+	private ContainerStatus cs; //O1
+	
+	public ContainerStatus getContainerStatus() { //O1
+		return cs;
+	}
+	
+	public void addMeasure(int[] measures) { //O1
+		cs.AddMeasure(measures);
+	}
+	
+	
+	
 	// All journeys are stored in this linked list
 	private static LinkedList<Journey> ALLJOURNEYS = new LinkedList();
 

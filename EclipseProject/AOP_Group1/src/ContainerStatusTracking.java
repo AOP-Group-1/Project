@@ -1,6 +1,8 @@
 import java.util.ArrayList;
+
 import java.util.List;
 import java.util.UUID;
+
 
 
 
@@ -14,65 +16,59 @@ these measurements to the system and the clients should be able
 to see them.
  */
 
+// Container >Journey List > Journey > Internal status
+
+
 class ContainerStatus {
-		
-	List<Integer> temp = new ArrayList<Integer>();
-	List<Integer> humi = new ArrayList<Integer>();	
-	List<Integer> atmo = new ArrayList<Integer>();
 	
-	public boolean AddMeasure(int measure, String category) {
-		if (category == null) {
+	// list of tuples, each tuple has corresponding category:
+	//Index 0 = temperature, Index 1 = humidity, Index 2 = atmospheric pressure
+	
+	List<int[]> measures = new ArrayList<int[]>();
+	
+	public boolean AddMeasure(int[] measure) {
+		if(measure.length == 3) {
+			this.measures.add(measure);
+			return true;
+		}
+		else {
 			return false;
 		}
-		else if (category.equalsIgnoreCase("temperature")) {
-			this.temp.add(measure);
-			return true;
-		} 
-		else if (category.equalsIgnoreCase("humidity")) {
-			this.humi.add(measure);
-			return true;
-		}
-		else if (category.equalsIgnoreCase("atmosphere")) {
-			this.atmo.add(measure);
-			return true;
-		}
-		return false;
 	}
 	
-	public List<Integer> getMeasure(String category) {
-		if (category == null) {
-			System.out.println("Category not found...");
-			return null;
-		}
-		else if (category.equalsIgnoreCase("temperature")) {
-			return this.temp;
-		} 
-		else if (category.equalsIgnoreCase("humidity")) {
-			return this.humi;
-		}
-		else if (category.equalsIgnoreCase("atmosphere")) {
-			return this.atmo;
-		}
-		System.out.println("Category not found...");
-		return null;
-		
-	}
 	
+	public List<int[]> getMeasure() {
+		return measures;
+	}
+
 }
 
 
 class Container {
 	//public int journeyID;
-	
+	private List<Journey> jl; //o1
 	public ContainerStatus status;
 	private String ContainerID;
-
+	
+	// Write: ONLY add measure to current journey (hard code path to addMeasure - current journey)
+	// Journeys.get(Journeys.length - 1).getContainerStatus.getMeasure().AddMeasure(9, 4, 6)
+	
+	// Read: View history of all journeys
+	// Journeys.get(Journeys.length - 1 - input).getContainerStatus.getMeasure().GetMeasure(some input)
+	
+	
 	public Container() {
 		this.ContainerID = UUID.randomUUID().toString();
 	}
 
+	
+	
 	public String getContainerID() {
 		return this.ContainerID;
+	}
+	
+	public void setMeasures (List<Integer> measures) {
+		
 	}
 	
 }
@@ -84,10 +80,13 @@ public class ContainerStatusTracking {
 
 		
 		ContainerStatus cs = new ContainerStatus();
-		System.out.println(cs.getMeasure("temperature"));
-		cs.AddMeasure(-10, "temperature");
-		System.out.println(cs.getMeasure("temperature"));
-		cs.getMeasure("teststst");
+		System.out.println(cs.getMeasure());
+		int[] firstInput = {1,2,3};
+		System.out.println(cs.AddMeasure(firstInput));
+		System.out.println(cs.getMeasure().get(0)[1]);
+		int[] secondInput = {1,2};
+		System.out.println(cs.AddMeasure(secondInput));
+		System.out.println(cs.getMeasure());
 		
 		
 	}
