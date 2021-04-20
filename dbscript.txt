@@ -1,0 +1,38 @@
+﻿Create table customer(
+Customerid varchar(40) not null,
+First_name varchar(30) not null,
+Last_name varchar(30) not null,
+Organization varchar(100) not null,
+Primary key(customerid)
+);
+
+
+Create table container(
+Containerid varchar(40) not null,
+Primary key(containerid)
+);
+
+
+Create table journey(
+journeyid varchar(40) not null,
+Containerid varchar(40) not null,
+Customerid varchar(40) not null,
+Origin varchar(30) not null,
+Destination varchar(30) not null,
+Content_type varchar(30) not null,
+Company varchar(25) not null,
+current_location  varchar(30) not null,
+Start_date timestamp,
+End_date timestamp, 
+Complete boolean,
+Primary key(journeyid)
+);
+
+
+Create table container_status(
+Containerid varchar(40),
+Internal_temperature float(8,4),
+Humidity  float(8,4),
+Atmostpheric_pressure  float(8,4),
+Time timestamp
+);
