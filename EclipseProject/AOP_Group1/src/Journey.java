@@ -1,217 +1,161 @@
-import java.util.LinkedList;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.UUID;
+import com.mysql.cj.jdbc.result.ResultSetMetaData;
 
+class Container {
+	public Container() {
 
-enum criticalArea {
-	US("United States"), CHINA("People's Republic of China"), MEXICO("Mexico");
-
-	private String fullName;
-
-	private criticalArea(String name) {
-		this.fullName = name.toUpperCase();
-	}
-
-	public String getFullName() {
-		return this.fullName;
 	}
 
 }
 
 public class Journey {
 	private String journeyID;
+	private String containerID;
+	private String customerID;
 	private String origin;
 	private String destination;
 	private String contentType;
 	private String company;
-	private String containerID;
 	private String currentLocation;
-	private LinkedList<String> travelHistory;
-	private boolean journeyComplete;
-	private ContainerStatus cs; //O1
-	
-	public ContainerStatus getContainerStatus() { //O1
-		return cs;
+	private String journeyComplete;
+	private ResultSet travelHistory;
+	private ResultSet allJourneys;
+	public Journey() {
+		
 	}
-	
-	public void addMeasure(int[] measures) { //O1
-		cs.AddMeasure(measures);
-	}
-	
-	
-	
-	// All journeys are stored in this linked list
-	private static LinkedList<Journey> ALLJOURNEYS = new LinkedList();
-
-	public Journey(String origin, String destination, String contentType, String company, Container container) {
-		for (criticalArea country : criticalArea.values()) {
-			if (country.getFullName().equals(destination.toUpperCase())) {
-				System.out.println("Shipping to chosen destination unavailable,registration denied");
-				return;
-			}
-		}
-
-		if (origin.equals(destination)) {
-			System.out.println("Origin and destination can not be the same");
-			return;
-		}
+	public Journey(String containerID, String customerID, String origin, String destination, String contentType,
+			String company) {
 		this.journeyID = UUID.randomUUID().toString();
-		this.containerID = container.getContainerID();
 		this.origin = origin;
 		this.destination = destination;
 		this.contentType = contentType;
 		this.company = company;
-		this.currentLocation = origin;
-		this.journeyComplete = false;
-		this.travelHistory = new LinkedList();
-		this.travelHistory.addLast(currentLocation);
-		ALLJOURNEYS.addLast(this);
-	}
-
-	public String getJourneyID() {
-		return this.journeyID;
-	}
-
-	// Update journey info
-	public void updateJourneyInfo(String destination, String contentType, String currentLocation) {
-		if (this.journeyComplete) {
-			System.out.println("Update denied,jouney already complete");
-			return;
-		}
-		if (destination != null) {
-			this.destination = destination;
-		}
-		if (contentType != null)
-			this.contentType = contentType;
-		if (currentLocation != null) {
-			this.currentLocation = currentLocation;
-			if (this.destination.equals(this.currentLocation)) {
-				this.journeyComplete = true;
-			}
-			this.travelHistory.addLast(this.currentLocation);
-		}
-	}
-
-	public void showTravelHistory() {
-		System.out.println("History of journey " + this.getJourneyID() + ":");
-		System.out.println("Origin:" + travelHistory.getFirst());
-		System.out.println("Destination:" + this.destination);
-		System.out.println("Complete footprint:");
-		for (int i = 0; i < travelHistory.size() - 1; i++) {
-			System.out.print(travelHistory.get(i) + "==>");
-		}
-		System.out.print(travelHistory.getLast()+"\n");
-	}
-	public static void showContainerHistory(Container container) {
-		LinkedList<Journey> journeys=new LinkedList();
-		journeys=searchForJourneys(null,null,null,null,container);
-		System.out.println("Journeys done by container"+container.getContainerID()+":");
-		for(Journey j:journeys) {
-			j.showTravelHistory();
-			System.out.println();
-		}
+		this.containerID = containerID;
+		this.customerID = customerID;
+		this.journeyComplete = "false";
 	}
 	
-	public void cancelJourney() {
-		ALLJOURNEYS.remove(this);
+	public String getJourneyID() {
+		return null;
 	}
 
-	// Search from ALLJOURNEYS based on filters;
-	public static LinkedList<Journey> searchForJourneys(String orig, String dest, String cont, String comp,Container container) {
-		LinkedList<Journey> filter = new LinkedList();
-		LinkedList<Journey> filter1 = new LinkedList();
-		LinkedList<Journey> filter2 = new LinkedList();
-		LinkedList<Journey> filter3 = new LinkedList();
-		LinkedList<Journey> filter4 = new LinkedList();
-		if (orig != null) {
-			for (Journey j : ALLJOURNEYS) {
-				if (j.origin.equals(orig))
-					filter.addLast(j);
+	public void registerJourney() {
+		String sql = String.format(
+				"insert into journey(journeyid,containerid,customerid,origin,destination,"
+						+ "content_type,company,current_location,start_date,end_date,complete) "
+						+ "values(\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",%s,%s,%s);",
+				this.journeyID, this.containerID, this.customerID, this.origin, this.destination, this.contentType,
+				this.company, this.origin, "null", "null", this.journeyComplete);
+		DBConnection db = new DBConnection();
+		db.update(sql);
+
+	}
+	
+	public void updateJourney(String currentLocation,String journeyid) {
+		String sql="update journey set journey.current_location= "+'"'+currentLocation+'"'+" where journey.journeyid= "+ '\"'+journeyid+'\"'+";";
+		DBConnection db = new DBConnection();
+		db.update(sql);
+	}
+	
+	public String getCurrentLocation(String journeyid) {
+		DBConnection db = new DBConnection();
+	
+		try {
+			ResultSet result=searchForJourney(journeyid,null,null,null,null,null,null,null,null,null,null);
+			String s;
+			while(result.next()) {
+				s=result.getString(8);
+				return s;
 			}
-		} else {
-			filter = ALLJOURNEYS;
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-
-		if (dest != null) {
-			for (Journey j : filter) {
-				if (j.destination.equals(dest)) {
-					filter1.addLast(j);
-				}
-			}
-
-		} else {
-			filter1 = filter;
-		}
-
-		if (cont != null) {
-			for (Journey j : filter1) {
-				if (j.contentType.equals(cont)) {
-					filter2.addLast(j);
-				}
-			}
-		} else {
-			filter2 = filter1;
-		}
-
-		if (comp != null) {
-			for (Journey j : filter2) {
-				if (j.company.equals(comp)) {
-					filter3.addLast(j);
-				}
-			}
-
-		} else {
-			filter3 = filter2;
-		}
+		return null;
+	}
+	
+	public static String prepareStatement(String operation,String tableName,String jid, String conid, String cusid, String ori, String dest,
+			String ctype, String comp, String clocation, String sdate, String edate, String complete) {
 		
-		if (container != null) {
-			for (Journey j : filter3) {
-				if (j.containerID.equals(container.getContainerID())) {
-					filter4.addLast(j);
-				}
+		StringBuilder condition = new StringBuilder();
+		if (jid != null)
+			condition.append(String.format("journey.journeyid = \"%s\" and", jid));
+		if (conid != null)
+			condition.append(String.format("journey.containerid = \"%s\" and", conid));
+		if (cusid != null)
+			condition.append(String.format("journey.customerid = \"%s\" and ", cusid));
+		if (ori != null)
+			condition.append(String.format("journey.origin = \"%s\" and ", ori));
+		if (dest != null)
+			condition.append(String.format("journey.destination = \"%s\" and ", dest));
+		if (ctype != null)
+			condition.append(String.format("journey.content_type = \"%s\" and ", ctype));
+		if (comp != null)
+			condition.append(String.format("journey.company = \"%s\" and ", comp));
+		if (clocation != null)
+			condition.append(String.format("journey.current_location = \"%s\" and ", clocation));
+		if (sdate != null)
+			condition.append(String.format("journey.start_date = \"%s\" and ", sdate));
+		if (edate != null)
+			condition.append(String.format("journey.end_date = \"%s\" and ", edate));
+		if (complete != null) {
+			if (complete.equals("true")) {
+				condition.append(String.format("journey.complete = %d and ", 1));
+			} else {
+				condition.append(String.format("journey.complete = %d and ", 0));
 			}
-
-		} else {
-			filter4 = filter3;
 		}
-		return filter4;
-	}
 
+		if (condition.toString() != null) {
+			condition.delete(condition.lastIndexOf("and"), condition.lastIndexOf("and") + 5);
+		}
+		String sql=operation+"* from "+tableName+" where "+condition.toString()+";";
+		return sql;
+	}
+	
+	public static ResultSet searchForJourney(String jid, String conid, String cusid, String ori, String dest,
+			String ctype, String comp, String clocation, String sdate, String edate, String complete) {
+		DBConnection db = new DBConnection();
+		String sql=prepareStatement("select","journey",jid,conid,cusid,ori,dest,ctype,comp,clocation,sdate,edate,complete);
+		ResultSet s = db.read(sql);
+		return s;
+
+	}
 	@Override
 	public boolean equals(Object o) {
-		if (o instanceof Journey) {
-			Journey j = (Journey) o;
-			if (j.getJourneyID() == this.journeyID) {
+		if(o instanceof Journey) {
+			Journey j=(Journey) o;
+			if(this.journeyID==j.journeyID) {
 				return true;
-			} else {
+			}else {
 				return false;
 			}
 		}
 		return false;
-
 	}
+	
+	public ResultSet showTravelHistory(String containerid) {
+		ResultSet rs=searchForJourney(null,containerid,null,null,null,null,null,null,null,null,null);
+		return rs;
+	}
+	
+
 
 	public static void main(String[] args) {
-		Container c=new Container();
-		Journey j1 = new Journey("Denmark", "People's Republic of China", "Beef", "Happycorp", new Container());
-		Journey j2 = new Journey("China", "China", "Beef", "Happycorp", new Container());
-		Journey j3 = new Journey("Japan", "China", "Beef", "Happycorp", new Container());
-		Journey j4 = new Journey("Korea", "China", "Beef", "Happycorp", new Container());
-		Journey j5 = new Journey("China", "Latvia", "Beef", "Happycorp", new Container());
-		Journey j6 = new Journey("Latvia", "China", "Beef", "Happycorp", c);
-		Journey j7 = new Journey("US", "China", "Mango", "Happycorp", c);
-		j4.cancelJourney();
-		LinkedList<Journey> js = searchForJourneys(null, "China", null, null,null);
-		System.out.println(js.size());
-		j6.updateJourneyInfo(null, null, "Finland");
-		j6.updateJourneyInfo(null, null, "North Pole");
-		j6.updateJourneyInfo(null, null, "Antarctic Ocean");
-		j6.updateJourneyInfo(null, null, "China");
-		j7.updateJourneyInfo(null, null, "Pacific Ocean");
-		j7.updateJourneyInfo(null, null, "Mexico");
-		j7.updateJourneyInfo(null, null, "Korea");
-		j7.updateJourneyInfo(null, null, "China");
-		j7.updateJourneyInfo(null, null, "Korea");
-		System.out.println("======");
-		showContainerHistory(c);
+		
+		Journey j=new Journey();
+		j.updateJourney("Germany", "1597f12b-ac0f-45a7-90c9-5ac3833bdfc7");
+		String location=j.getCurrentLocation("1597f12b-ac0f-45a7-90c9-5ac3833bdfc7");
+		System.out.println("current location:"+location);
+		
+		j.updateJourney("US", "1597f12b-ac0f-45a7-90c9-5ac3833bdfc7");
+		String location2=j.getCurrentLocation("1597f12b-ac0f-45a7-90c9-5ac3833bdfc7");
+		System.out.println("current location:"+location2);
+
 	}
 }
+
+
