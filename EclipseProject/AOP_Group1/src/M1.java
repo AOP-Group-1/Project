@@ -26,6 +26,7 @@ public class M1 {
 		
 		dict.put(ID, new ArrayList<String>());	
 		
+		
 		for(int i = 0; i < 4; i++)
 			dict.get(ID).add("");			
 			
