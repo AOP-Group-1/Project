@@ -46,7 +46,7 @@ class ContainerStatus {
 
 class Container {
 	//public int journeyID;
-	private List<O1> jl = new ArrayList<O1>(); //o1
+	private List<Journey> jl = new ArrayList<Journey>(); //Journey
 	public ContainerStatus status;
 	private String ContainerID;
 	
@@ -81,7 +81,7 @@ class Container {
 		return res;
 	}
 	
-	public void addJourney (O1 j) {
+	public void addJourney (Journey j) {
 		jl.add(j);
 	}
 	
@@ -94,17 +94,25 @@ public class ContainerStatusTracking {
 
 		
 		Container c = new Container();
-		O1 j = new O1();
+		Journey j = new Journey();
 		c.addJourney(j);
 		int[] test1 = {1,2,3};
 		int[] test2 = {2,4,6};
  		c.addMeasures(test1);
  		c.addMeasures(test2);
  		
- 		c.addJourney(new O1());
+ 		c.addJourney(new Journey());
  		c.addMeasures(test2);
  		
 		System.out.println(c.getMeasures());
+		
+		System.out.println(c.getMeasures().get(0).get(0)[0]);
+		// journeyID(abc1234):
+		//    				 Temp | Humi | Atmo  
+		// time (0):	 	 10	  | 20   | 102
+		// time (1):		 12	  | 2  | 101
+		// time (2):
+		
 	}
 
 }

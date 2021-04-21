@@ -1,14 +1,9 @@
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.UUID;
 import com.mysql.cj.jdbc.result.ResultSetMetaData;
 
-class Container {
-	public Container() {
-
-	}
-
-}
 
 public class Journey {
 	private String journeyID;
@@ -119,6 +114,8 @@ public class Journey {
 	
 	
 	
+	
+	
 	public static ResultSet searchForJourney(String jid, String conid, String cusid, String ori, String dest,
 			String ctype, String comp, String clocation, String sdate, String edate, String complete) {
 		DBConnection db = new DBConnection();
@@ -146,10 +143,34 @@ public class Journey {
 	}
 	
 
+	private ContainerStatus cs = new ContainerStatus(); //O1
+
+	public ContainerStatus getContainerStatus() { //O1
+		return cs;
+	}
+
+	public void addMeasure(int[] measures) { //O1
+		cs.AddMeasure(measures);
+	}
+	
+	
+	public List<int[]> getMeasure() {
+		
+		return cs.measures;
+		
+	}
+	
+
+
+	
+	
 
 	public static void main(String[] args) {
 		
-		Journey j=new Journey();
+		Journey j1 = new Journey(UUID.randomUUID().toString(),UUID.randomUUID().toString(),"denmark","us","banana","bancorp");
+        j1.registerJourney();
+		
+		Journey j = new Journey();
 		j.updateJourney("Germany", "1597f12b-ac0f-45a7-90c9-5ac3833bdfc7");
 		String location=j.getCurrentLocation("1597f12b-ac0f-45a7-90c9-5ac3833bdfc7");
 		System.out.println("current location:"+location);

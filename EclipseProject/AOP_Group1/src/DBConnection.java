@@ -3,9 +3,9 @@ import java.sql.*;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 public class DBConnection {
-	private static String address="jdbc:mysql://localhost:3306/logistic";
-	private static String username="admin";
-	private static String password="admin";
+	private static String address="jdbc:mysql://localhost:3306/Journey";
+	private static String username="root";
+	private static String password="Cce47hhy?";
 	private Connection conn=null;
 	public DBConnection() {
 		try {
