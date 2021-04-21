@@ -1,3 +1,5 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import java.util.List;
@@ -19,35 +21,12 @@ to see them.
 // Container >Journey List > Journey > Internal status
 
 
-class ContainerStatus {
-	
-	// list of tuples, each tuple has corresponding category:
-	//Index 0 = temperature, Index 1 = humidity, Index 2 = atmospheric pressure
-	
-	List<int[]> measures = new ArrayList<int[]>();
-	
-	public boolean AddMeasure(int[] measure) {
-		if(measure.length == 3) {
-			this.measures.add(measure);
-			return true;
-		}
-		else {
-			return false;
-		}
-	}
-	
-	
-	public List<int[]> getMeasure() {
-		return measures;
-	}
 
-}
 
 
 class Container {
 	//public int journeyID;
 	private List<Journey> jl = new ArrayList<Journey>(); //Journey
-	public ContainerStatus status;
 	private String ContainerID;
 	
 	// Write: ONLY add measure to current journey (hard code path to addMeasure - current journey)
@@ -61,15 +40,24 @@ class Container {
 		this.ContainerID = UUID.randomUUID().toString();
 	}
 
-	
+	//container's addMeasurements -> Journeys AddMeasurements -> ContainerStatus' addMeasurements
 	
 	public String getContainerID() {
 		return this.ContainerID;
 	}
+
 	
-	public void addMeasures (int[] measures) {
+	public void addMeasuresContainer (int[] measures) {
 		int numOfJourneys = jl.size();
-		jl.get(numOfJourneys - 1).addMeasure(measures);
+		jl.get(numOfJourneys - 1).addMeasureJourney(measures); //add the measurements to the current journey
+		
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+		LocalDateTime now = LocalDateTime.now(); //Get current time and format it
+		
+		String sql = String.format("insert into container_status (Containerid, Internal_temperature, Humidity, Atmostpheric_pressure, Time) values(\"%s\",%d,%d,%d,\"%s\");", 
+				jl.get(numOfJourneys - 1).getJourneyID(), measures[0], measures[1], measures[2], dtf.format(now));
+		DBConnection db = new DBConnection(); 
+		db.update(sql); //update database with new measurements
 	}
 
 	// User requests container --> gets list of journeys --> selects journey --> gets measure categories --> selects measure
@@ -92,27 +80,26 @@ public class ContainerStatusTracking {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		
 		Container c = new Container();
-		Journey j = new Journey();
+		Journey j = new Journey(c.getContainerID(),"customerIDplaceholder","Copenhagen","London","Bananas","DSV");
 		c.addJourney(j);
 		int[] test1 = {1,2,3};
 		int[] test2 = {2,4,6};
- 		c.addMeasures(test1);
- 		c.addMeasures(test2);
+ 		c.addMeasuresContainer(test1);
+ 		c.addMeasuresContainer(test2);
  		
- 		c.addJourney(new Journey());
- 		c.addMeasures(test2);
+ 		Journey j2 = new Journey(c.getContainerID(),"customerIDplaceholder","Copenhagen","London","Bananas","DSV");
+ 		c.addJourney(j2);
+ 		c.addMeasuresContainer(test2);
  		
 		System.out.println(c.getMeasures());
 		
 		System.out.println(c.getMeasures().get(0).get(0)[0]);
 		// journeyID(abc1234):
-		//    				 Temp | Humi | Atmo  
-		// time (0):	 	 10	  | 20   | 102
-		// time (1):		 12	  | 2  | 101
-		// time (2):
-		
+		//    				 Temp | Humi | Atmo | time
+		// JourneyID:	 	 10	  | 20   | 102
+		// JourneyID:		 12	  | 2  | 101
+		// 
 	}
 
 }

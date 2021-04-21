@@ -34,7 +34,7 @@ public class Journey {
 	
 	
 	public String getJourneyID() {
-		return null;
+		return journeyID;
 	}
 
 	public void registerJourney() {
@@ -149,8 +149,8 @@ public class Journey {
 		return cs;
 	}
 
-	public void addMeasure(int[] measures) { //O1
-		cs.AddMeasure(measures);
+	public void addMeasureJourney(int[] measures) { //O1
+		cs.addMeasureContainerStatus(measures);
 	}
 	
 	
@@ -178,7 +178,7 @@ public class Journey {
 		j.updateJourney("US", "1597f12b-ac0f-45a7-90c9-5ac3833bdfc7");
 		String location2=j.getCurrentLocation("1597f12b-ac0f-45a7-90c9-5ac3833bdfc7");
 		System.out.println("current location:"+location2);
-
+		
 	}
 }
 
