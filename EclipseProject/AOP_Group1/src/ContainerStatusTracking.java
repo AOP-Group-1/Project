@@ -46,7 +46,7 @@ class ContainerStatus {
 
 class Container {
 	//public int journeyID;
-	private List<Journey> jl; //o1
+	private List<O1> jl = new ArrayList<O1>(); //o1
 	public ContainerStatus status;
 	private String ContainerID;
 	
@@ -67,8 +67,22 @@ class Container {
 		return this.ContainerID;
 	}
 	
-	public void setMeasures (List<Integer> measures) {
-		
+	public void addMeasures (int[] measures) {
+		int numOfJourneys = jl.size();
+		jl.get(numOfJourneys - 1).addMeasure(measures);
+	}
+
+	// User requests container --> gets list of journeys --> selects journey --> gets measure categories --> selects measure
+	public List<List<int[]>> getMeasures () {
+		List<List<int[]>> res = new ArrayList<List<int[]>>();
+		for(int i = 0; i < jl.size(); i++) {
+			res.add(jl.get(i).getMeasure());	
+		}
+		return res;
+	}
+	
+	public void addJourney (O1 j) {
+		jl.add(j);
 	}
 	
 }
@@ -79,16 +93,18 @@ public class ContainerStatusTracking {
 		// TODO Auto-generated method stub
 
 		
-		ContainerStatus cs = new ContainerStatus();
-		System.out.println(cs.getMeasure());
-		int[] firstInput = {1,2,3};
-		System.out.println(cs.AddMeasure(firstInput));
-		System.out.println(cs.getMeasure().get(0)[1]);
-		int[] secondInput = {1,2};
-		System.out.println(cs.AddMeasure(secondInput));
-		System.out.println(cs.getMeasure());
-		
-		
+		Container c = new Container();
+		O1 j = new O1();
+		c.addJourney(j);
+		int[] test1 = {1,2,3};
+		int[] test2 = {2,4,6};
+ 		c.addMeasures(test1);
+ 		c.addMeasures(test2);
+ 		
+ 		c.addJourney(new O1());
+ 		c.addMeasures(test2);
+ 		
+		System.out.println(c.getMeasures());
 	}
 
 }

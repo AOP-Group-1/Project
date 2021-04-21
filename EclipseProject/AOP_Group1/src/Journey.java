@@ -37,6 +37,7 @@ public class Journey {
 		this.journeyComplete = "false";
 	}
 	
+	
 	public String getJourneyID() {
 		return null;
 	}
@@ -115,6 +116,8 @@ public class Journey {
 		String sql=operation+"* from "+tableName+" where "+condition.toString()+";";
 		return sql;
 	}
+	
+	
 	
 	public static ResultSet searchForJourney(String jid, String conid, String cusid, String ori, String dest,
 			String ctype, String comp, String clocation, String sdate, String edate, String complete) {
