@@ -1,27 +1,23 @@
 import java.util.*;
 
-// make search function to search for clients using id or name
-// make interface so info can be edited or one can  make a new client
 
-
-
-class Client {
-	Scanner s = new Scanner(System.in);
-	
+public class M1 {
+		
 	int ID;
 	String name;
 	String email;
 	String address;
 	String refPer;
 	
+	// change to database stuff
 	// map with multiple values per key
 	public Map<Integer, ArrayList<String>> dict = new HashMap<Integer, ArrayList<String>>();
 		
 	// constructor for making client id and setting new client details
-	public Client() {
+	public M1() {
 		
+		// change to the thing rachel and lee did
 		Random rand = new Random();
-		//Why is the following integer needed? And isn't it risky generating random numbers?
 		int upperbound = 10000000;
 		ID = rand.nextInt(upperbound);
 		
@@ -42,82 +38,42 @@ class Client {
 	}
 	
 	// setting details (name, email, address and reference person) and saving in map
+	
+	// for example like this, when doing the data base but idk
+//	public void setRefPer(String refPer) {
+//		databasename.put(refPer)
+
+	
 	public void setName() {
-		System.out.print("Name: ");
-		name = s.nextLine();
-		
+				
 		dict.get(ID).set(0, name);
 		
 	}
 	
 	public void setEmail() {
-		System.out.print("Email: ");
-		email = s.nextLine();
-		
+				
 		dict.get(ID).set(1, email);
 		
 	}
 	
 	public void setAddress() {
-		System.out.print("Address: ");
-		address = s.nextLine();
+	
 		
 		dict.get(ID).set(2, address);
 		
 	}
 	
+	
 	public void setRefPer() {
-		System.out.print("Reference person: ");
-		refPer = s.nextLine();
+	
 		
 		dict.get(ID).set(3, refPer);
 		
 	}
 	
 	public void search() {
+		// should be changed according to databasing so one can search for id in database or name
 		Arrays.toString(dict.entrySet().toArray());
-	}
-}
-
-
-public class M1 {
-	static Scanner s = new Scanner(System.in);
-	
-	public static void main(String[] args) {
-		
-		while (true) {
-			System.out.print("1 Add client \n2 edit client");
-			
-			System.out.println("your input");
-			
-			int input = s.nextInt();
-			
-			if (input == 1) {
-				new Client();
-			}
-			
-			
-			else if (input == 2) {
-				//dict.keySet();
-				System.out.println("1 edit name \n 2 edit email \n3 edit address \n4 edit refper");
-				System.out.println("your input");
-				
-				//int input = s.nextInt();
-				
-				if (input == 1) {
-					//new setName();
-				}
-				
-			}
-			
-			else if (input == 3);
-				
-		}
-		
-		
-		
-				
-
 	}
 }
 
