@@ -1,14 +1,23 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+
+/*Feature:
+ * - Contains a set of measures (3 integers) and time (1 string)
+ * - Keeps track of time of logged measures
+ */
 public class MeasureLog {
 
 	//order of data is : temperature, humidity, atmospheric pressure, time
 	int[] measures;
 	String time;
-	public MeasureLog(int[] measures, String time) {
+	public MeasureLog(int[] measures) {
 		this.measures = measures;
-		this.time = time;
+		//figure out current time:
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+		LocalDateTime now = LocalDateTime.now(); 
+		
+		this.time = dtf.format(now);
 		
 		
 	}
@@ -36,12 +45,11 @@ public class MeasureLog {
 	
 	public static void main(String[] args) {
 
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
-		LocalDateTime now = LocalDateTime.now(); 
+		
 		int[] test1 = {1,2,4};
 		
 		
-		MeasureLog ML = new MeasureLog(test1,dtf.format(now));
+		MeasureLog ML = new MeasureLog(test1);
 		
 		System.out.println(ML.getMeasure("Time"));
 		System.out.println(ML.getTime());

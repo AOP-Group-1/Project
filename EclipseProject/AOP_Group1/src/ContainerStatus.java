@@ -1,6 +1,9 @@
 import java.util.ArrayList;
 import java.util.List;
 
+/* Feature
+ * - Contains a list of logged measures and times
+ */
 public class ContainerStatus {
 	
 	// list of tuples, each tuple has corresponding category:
@@ -8,21 +11,20 @@ public class ContainerStatus {
 	
 	//( [1,2,3] , [1,2,4] , [2,3,4] )
 	
-	List<int[]> measures = new ArrayList<int[]>();
+	List<MeasureLog> measures = new ArrayList<MeasureLog>();
 	
-	public boolean addMeasureContainerStatus(int[] measure) {
-		if(measure.length == 3) {
-			this.measures.add(measure);
-			return true;
-		}
-		else {
-			return false;
-		}
+	public void addMeasureContainerStatus(MeasureLog measure) {
+		this.measures.add(measure);
 	}
 	
 	
-	public List<int[]> getMeasure() {
+	public List<MeasureLog> getMeasure() {
 		return measures;
 	}
 
 }
+
+
+
+
+
