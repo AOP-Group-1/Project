@@ -50,7 +50,7 @@ public class companyLogin extends JFrame {
 					public void actionPerformed(ActionEvent e) {
 						if(txtPass.getText().equals(password) && !txtLogin.getText().isEmpty()) {
 							companyInterface.companyInterface();
-							
+							dispose();
 						}
 						else {
 							JOptionPane.showMessageDialog(panel, "Wrong username/password combination", "Login error", JOptionPane.ERROR_MESSAGE);
