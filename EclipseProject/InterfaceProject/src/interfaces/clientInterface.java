@@ -9,6 +9,7 @@ import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JToolBar;
@@ -47,7 +48,26 @@ public class clientInterface extends JFrame{
 						
 					}
 				});
-				
+				JButton btnLogout = new JButton("Logout");
+
+			        btnLogout.setBounds(670, 540, 120, 30);
+			        btnLogout.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					int confirmed = JOptionPane.showConfirmDialog(null, "Are you sure you wanna logout?","EXIT",JOptionPane.YES_NO_OPTION);
+		
+					if (confirmed == JOptionPane.YES_OPTION) {
+						clientLogin.clientLogin();
+						dispose();
+					}
+					else if (confirmed == JOptionPane.NO_OPTION){
+						//remove(confirmed);
+					}
+				   
+					
+				}
+			});
+		
 				// toolbar
 				lblSession = new JLabel();
 				lblSession.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -58,7 +78,7 @@ public class clientInterface extends JFrame{
 				toolbar.add(Box.createHorizontalGlue());
 				toolbar.add(lblSession);
 				add(toolbar, BorderLayout.NORTH);
-				
+				add(btnLogout);
 				
 				lblSession.setText("<html>" + clientLogin.getUsername() + " <i>(" +" Client" + ")</i></html>");
 				
