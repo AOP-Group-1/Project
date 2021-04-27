@@ -2,16 +2,11 @@
 Customerid varchar(40) not null,
 First_name varchar(30) not null,
 Last_name varchar(30) not null,
+email varchar(40),
+reference_person varchar(60) not null,
 Organization varchar(100) not null,
 Primary key(customerid)
 );
-
-
-Create table container(
-Containerid varchar(40) not null,
-Primary key(containerid)
-);
-
 
 Create table journey(
 journeyid varchar(40) not null,
