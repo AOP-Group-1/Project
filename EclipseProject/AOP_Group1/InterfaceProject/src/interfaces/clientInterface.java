@@ -9,7 +9,6 @@ import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JToolBar;
@@ -19,8 +18,6 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableModel;
 
-import Login.clientLogin;
-import Login.companyLogin;
 
 public class clientInterface extends JFrame{
 	private static final long serialVersionUID = 1L;
@@ -34,7 +31,7 @@ public class clientInterface extends JFrame{
 				setPreferredSize(new Dimension(800, 600));
 				
 				// buttons
-				JButton btnJournMan = new JButton("Containers");
+				JButton btnJournMan = new JButton("Journey Management");
 				btnJournMan.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
@@ -42,7 +39,7 @@ public class clientInterface extends JFrame{
 
 					}
 				});
-				JButton btnContStat = new JButton("Add Container");
+				JButton btnContStat = new JButton("Container Status");
 				//btnContStat.setEnabled(false);
 				btnContStat.addActionListener(new ActionListener() {
 					@Override
@@ -50,7 +47,14 @@ public class clientInterface extends JFrame{
 						//ContainerStatus.ContainerStatus();
 					}
 				});
-
+				
+				JButton btnContHis = new JButton("Container History");
+				btnContHis.addActionListener(new ActionListener() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						
+					}
+				});
 				
 				JButton btnEditInfo = new JButton("Edit Infomation");
 				btnEditInfo.addActionListener(new ActionListener() {
@@ -60,8 +64,6 @@ public class clientInterface extends JFrame{
 					}
 				});
 				
-							
-								
 				// toolbar
 				lblSession = new JLabel();
 				lblSession.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -69,16 +71,11 @@ public class clientInterface extends JFrame{
 				JToolBar toolbar = new JToolBar();
 				toolbar.add(btnJournMan);
 				toolbar.add(btnContStat);
+				toolbar.add(btnContHis);
 				toolbar.add(btnEditInfo);
 				toolbar.add(Box.createHorizontalGlue());
 				toolbar.add(lblSession);
 				add(toolbar, BorderLayout.NORTH);
-				add(btnLogOut);
-				
-				
-				
-				lblSession.setText("<html>" + clientLogin.getUsername() + " <i>(" +" Client" + ")</i></html>");
-				
 				
 				// table
 				tblInventory = new JTable();

@@ -11,8 +11,10 @@ public class M1 {
 	
 	// change to database stuff
 	// map with multiple values per key
-	public Map<Integer, ArrayList<String>> dict = new HashMap<Integer, ArrayList<String>>();
+	public static Map<Integer, ArrayList<String>> dict = new HashMap<Integer, ArrayList<String>>();
 		
+	
+	
 	// constructor for making client id and setting new client details
 	public M1() {
 		
@@ -30,7 +32,7 @@ public class M1 {
 		for(int i = 0; i < 4; i++)
 			dict.get(ID).add("");			
 			
-		this.setName();
+		//this.setName();
 		this.setEmail();
 		this.setAddress();
 		this.setRefPer();		
@@ -44,7 +46,7 @@ public class M1 {
 //		databasename.put(refPer)
 
 	
-	public void setName() {
+	public void setName(String name) {
 				
 		dict.get(ID).set(0, name);
 		
@@ -71,9 +73,22 @@ public class M1 {
 		
 	}
 	
-	public void search() {
+	public String search() {
 		// should be changed according to databasing so one can search for id in database or name
-		Arrays.toString(dict.entrySet().toArray());
+		return Arrays.toString(dict.entrySet().toArray());
 	}
+	
+	public static void main(String[] args) {
+		
+		M1 m1 = new M1();
+		m1.setName("Google");
+		System.out.println(m1.search());
+		
+		M1 m2 = new M1();
+		m2.setName("Sony");
+		System.out.println(m2.search());
+		
+	}
+	
 }
 

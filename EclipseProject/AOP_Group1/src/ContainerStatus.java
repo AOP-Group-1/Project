@@ -25,6 +25,8 @@ public class ContainerStatus {
 }
 
 
+//User -> Choose a container -> (Show basic info) -> choose journey -> show measurements 
+
 
 
 
