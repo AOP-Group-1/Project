@@ -16,8 +16,10 @@ public class Container {
 	//public int journeyID;
 	private List<Journey> jl = new ArrayList<Journey>(); //Journey
 	private String ContainerID;
-
-	public Container() {
+	private String OwnerID;
+	
+	public Container(Client owner) {
+		this.OwnerID = owner.ID;
 		this.ContainerID = UUID.randomUUID().toString();
 	}
 
@@ -61,7 +63,7 @@ public class Container {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		Container c = new Container();
+		Container c = new Container(null);
 		Journey j = new Journey(c.getContainerID(),"customerIDplaceholder","Copenhagen","London","Bananas","DSV");
 		c.addJourney(j);
 		int[] test1 = {1,2,3};

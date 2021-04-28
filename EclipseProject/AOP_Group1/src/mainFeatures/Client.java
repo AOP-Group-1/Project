@@ -10,6 +10,7 @@ public class Client {
 	String email;
 	String address;
 	String refPer;
+	String password;
 	List<Container> containers;
 	
 	
@@ -59,21 +60,27 @@ public class Client {
 	public void setName(String name) {
 				this.name = name;	
 	}
+	public String getName() {
+		return name;
+	}
+	public void setPassword(String password) {
+		this.password = password;	
+	}
 	
 	public void setEmail(String email) {
-				
 		this.email = email;
-		
 	}
 	
 	public void setAddress(String address ) {
 		this.address = address;
 	}
-	
-	
 	public void setRefPer(String refPer) {
 		this.refPer = refPer;
 	}
+	public void replaceID(String ID) {
+		this.ID = ID;
+	}
+	
 	public String getID() {
 		return ID;
 	}

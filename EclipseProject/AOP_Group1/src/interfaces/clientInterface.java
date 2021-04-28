@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.Box;
 import javax.swing.JButton;
@@ -29,20 +31,17 @@ public class clientInterface extends JFrame{
 
 	private JTable tblInventory;
 	private JLabel lblSession;
-
-
 	
-	private void loadClientData() {
-		
-		Client clientInstance = new Client();
-		clientInstance.addContainer(new Container());
-		
-		
-	}
+	
+	
 
+//	private void loadContainers() {
+//		
+//	}
+	
+	
 	public clientInterface() {
 				
-				loadClientData()
 		        
 				setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				setTitle("Client Interface");
@@ -90,7 +89,7 @@ public class clientInterface extends JFrame{
 				btnLogout.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						int confirmed = JOptionPane.showConfirmDialog(null, "Are you sure you wanna logout?","EXIT",JOptionPane.YES_NO_OPTION);
+						int confirmed = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?","EXIT",JOptionPane.YES_NO_OPTION);
 			
 						if (confirmed == JOptionPane.YES_OPTION) {
 							clientLogin.clientLogin();
