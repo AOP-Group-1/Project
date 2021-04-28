@@ -79,10 +79,7 @@ public class initializationInterface extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if(clientB.isSelected() == false && companyB.isSelected() == false) {
-					JOptionPane.showMessageDialog(panel,
-						    "Please choose a login",
-						    "Error",
-						    JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(panel,"Please choose a login","Error", JOptionPane.ERROR_MESSAGE);
 				} 
 				else if (clientB.isSelected() == true) {
 					clientLogin.clientLogin();

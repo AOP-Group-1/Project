@@ -22,10 +22,9 @@ public class clientLogin extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 		private JButton btnLogin;
-	    private JTextField txtLogin;
+	    private static JTextField txtLogin;
 	    private JPasswordField txtPass;
-	
-	
+	   
 		public clientLogin() {
 			
 				setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -81,7 +80,10 @@ public class clientLogin extends JFrame {
 				pack();
 				setLocationRelativeTo(null);
 			}
-			
+		
+		public static String getUsername() {
+			return txtLogin.getText();
+		}
 		
 		public static void clientLogin() {
 	    clientLogin clientL = new clientLogin();

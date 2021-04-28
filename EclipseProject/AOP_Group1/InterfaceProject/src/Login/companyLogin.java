@@ -22,7 +22,7 @@ public class companyLogin extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 		private JButton btnLogin;
-	    private JTextField txtLogin;
+	    private static JTextField txtLogin;
 	    private JPasswordField txtPass;
 	
 	
@@ -50,7 +50,7 @@ public class companyLogin extends JFrame {
 					public void actionPerformed(ActionEvent e) {
 						if(txtPass.getText().equals(password) && !txtLogin.getText().isEmpty()) {
 							companyInterface.companyInterface();
-							
+							dispose();
 						}
 						else {
 							JOptionPane.showMessageDialog(panel, "Wrong username/password combination", "Login error", JOptionPane.ERROR_MESSAGE);
@@ -81,6 +81,11 @@ public class companyLogin extends JFrame {
 				setLocationRelativeTo(null);
 			}
 			
+		public static String getUsername() {
+			return txtLogin.getText();
+		}
+		
+		
 		
 		public static void companyLogin() {
 		companyLogin companyL = new companyLogin();
