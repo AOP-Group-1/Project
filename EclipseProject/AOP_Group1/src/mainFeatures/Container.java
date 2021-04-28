@@ -23,6 +23,10 @@ public class Container {
 		this.ContainerID = UUID.randomUUID().toString();
 	}
 
+	public Container(String string) {
+		// TODO Auto-generated constructor stub
+	}
+
 	//container's addMeasurements -> Journeys AddMeasurements -> ContainerStatus' addMeasurements
 	
 	public String getContainerID() {
@@ -63,8 +67,8 @@ public class Container {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		Container c = new Container(null);
-		Journey j = new Journey(c.getContainerID(),"customerIDplaceholder","Copenhagen","London","Bananas","DSV");
+		Container c = new Container("123");
+		Journey j = new Journey("Copenhagen","London","Bananas","DSV");
 		c.addJourney(j);
 		int[] test1 = {1,2,3};
 		int[] test2 = {2,4,6};
@@ -74,7 +78,7 @@ public class Container {
 		c.addMeasuresContainer(ml1);
  		c.addMeasuresContainer(ml2);
  		
- 		Journey j2 = new Journey(c.getContainerID(),"customerIDplaceholder","Copenhagen","London","Bananas","DSV");
+ 		Journey j2 = new Journey("Copenhagen","London","Bananas","DSV");
  		c.addJourney(j2);
  		c.addMeasuresContainer(ml2);
  		

@@ -15,7 +15,8 @@ public class Container {
 	//public int journeyID;
 	private List<Journey> jl = new ArrayList<Journey>(); //Journey
 	private String ContainerID;
-
+	//Missing ownerID
+	
 	public Container() {
 		this.ContainerID = UUID.randomUUID().toString();
 	}
@@ -60,7 +61,7 @@ public class Container {
 		// TODO Auto-generated method stub
 
 		Container c = new Container();
-		Journey j = new Journey(c.getContainerID(),"customerIDplaceholder","Copenhagen","London","Bananas","DSV");
+		Journey j = new Journey("Copenhagen","London","Bananas","DSV");
 		c.addJourney(j);
 		int[] test1 = {1,2,3};
 		int[] test2 = {2,4,6};
@@ -70,7 +71,7 @@ public class Container {
 		c.addMeasuresContainer(ml1);
  		c.addMeasuresContainer(ml2);
  		
- 		Journey j2 = new Journey(c.getContainerID(),"customerIDplaceholder","Copenhagen","London","Bananas","DSV");
+ 		Journey j2 = new Journey("Copenhagen","London","Bananas","DSV");
  		c.addJourney(j2);
  		c.addMeasuresContainer(ml2);
  		
