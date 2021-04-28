@@ -19,10 +19,9 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableModel;
-
 import Login.clientLogin;
-
-
+import mainFeatures.Client;
+import mainFeatures.Container;
 
 
 public class clientInterface extends JFrame{
@@ -30,10 +29,20 @@ public class clientInterface extends JFrame{
 
 	private JTable tblInventory;
 	private JLabel lblSession;
+
+
 	
+	private void loadClientData() {
+		
+		Client clientInstance = new Client();
+		clientInstance.addContainer(new Container());
+		
+		
+	}
 
 	public clientInterface() {
-		
+				
+				loadClientData()
 		        
 				setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				setTitle("Client Interface");
