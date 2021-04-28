@@ -29,7 +29,6 @@ public class Container {
 	public void addJourney (Journey j) {
 		jl.add(j);
 	}
-
 	
 	public void addMeasuresContainer (MeasureLog measures) { //construct a MeasureLog object from an int[] in the facade
 		int numOfJourneys = jl.size();

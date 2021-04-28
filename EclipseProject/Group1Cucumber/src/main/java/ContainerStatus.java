@@ -18,9 +18,9 @@ public class ContainerStatus {
 	}
 	
 	
-	public List<MeasureLog> getMeasure() {
-		return measures;
-	}
+//	public List<MeasureLog> getMeasure() {
+//		return measures;
+//	}
 
 }
 
