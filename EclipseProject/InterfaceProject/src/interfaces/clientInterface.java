@@ -59,9 +59,32 @@ public class clientInterface extends JFrame{
 						
 					}
 				});
+<<<<<<< HEAD
 				
 							
 								
+=======
+				JButton btnLogout = new JButton("Logout");
+
+			        btnLogout.setBounds(670, 540, 120, 30);
+			        btnLogout.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					int confirmed = JOptionPane.showConfirmDialog(null, "Are you sure you wanna logout?","EXIT",JOptionPane.YES_NO_OPTION);
+		
+					if (confirmed == JOptionPane.YES_OPTION) {
+						clientLogin.clientLogin();
+						dispose();
+					}
+					else if (confirmed == JOptionPane.NO_OPTION){
+						//remove(confirmed);
+					}
+				   
+					
+				}
+			});
+		
+>>>>>>> cac749bb3bc0b286c78be8b91dd35b348d0841a0
 				// toolbar
 				lblSession = new JLabel();
 				lblSession.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -73,9 +96,13 @@ public class clientInterface extends JFrame{
 				toolbar.add(Box.createHorizontalGlue());
 				toolbar.add(lblSession);
 				add(toolbar, BorderLayout.NORTH);
+<<<<<<< HEAD
 				add(btnLogOut);
 				
 				
+=======
+				add(btnLogout);
+>>>>>>> cac749bb3bc0b286c78be8b91dd35b348d0841a0
 				
 				lblSession.setText("<html>" + clientLogin.getUsername() + " <i>(" +" Client" + ")</i></html>");
 				

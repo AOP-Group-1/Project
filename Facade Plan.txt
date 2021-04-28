@@ -1,0 +1,33 @@
+
+On startup:
+Load from database:
+(Default admin account)
+client (users) (Username, password, name etc.) - clientID
+Containers (tied to client) - containerID
+Journeys (tied to container) - journeyID
+
+
+Datachecks:
+Clients can only input countries from list of (all) countries. (so you can't input "carpet5" as destination)
+Passwords have to be 8 characters long.
+
+
+
+Clients can:
+Find their journeys based on simple criteria - show current location of containers on container list.
+Update / Edit information of their user profile.
+Client interface walkthrough:
+Container button -> show Containers -> select container -> show jouneyID + signify current journey -> choose journey -> show basic stuff + measurements
+Add container -> popup window with new container ID
+Add journey -> show Containers with no current journey -> select container -> input necessary info
+Logout button
+
+
+
+
+Admins can:
+Create new users.
+Update Journey measurements
+Update journey (completed or not)
+Find clients based on simple criteria (name, email) - change search function - talk with Rachel and Lee - maybe search directly from the database
+Logout button
