@@ -41,7 +41,7 @@ public class Container {
 		}
 		jl.get(numOfJourneys - 1).addMeasureJourney(measures); //add the measurements to the current journey
 		
-		String sql = String.format("insert into container_status (Containerid, Internal_temperature, Humidity, Atmostpheric_pressure, Time) values(\"%s\",%d,%d,%d,\"%s\");", 
+		String sql = String.format("insert into container_status (journeyid, Internal_temperature, Humidity, Atmostpheric_pressure, Time) values(\"%s\",%d,%d,%d,\"%s\");", 
 				jl.get(numOfJourneys - 1).getJourneyID(), measures.getMeasure("temperature"), 
 														  measures.getMeasure("humidity"), 
 														  measures.getMeasure("pressure"),
@@ -62,8 +62,8 @@ public class Container {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
-		Container c = new Container(null);
+		Client client = new Client();
+		Container c = new Container(client);
 		Journey j = new Journey(c.getContainerID(),"customerIDplaceholder","Copenhagen","London","Bananas","DSV");
 		c.addJourney(j);
 		int[] test1 = {1,2,3};

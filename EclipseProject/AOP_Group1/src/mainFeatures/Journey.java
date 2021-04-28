@@ -32,6 +32,7 @@ public class Journey {
 		this.containerID = containerID;
 		this.customerID = customerID;
 		this.journeyComplete = "false";
+		registerJourney();
 	}
 	
 	
