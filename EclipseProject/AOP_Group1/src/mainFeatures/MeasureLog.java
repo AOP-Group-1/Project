@@ -18,12 +18,8 @@ public class MeasureLog {
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
 		LocalDateTime now = LocalDateTime.now(); 
 		
-		this.time = dtf.format(now);
-		
-		
+		this.time = dtf.format(now);	
 	}
-	
-
 	
 	public int getMeasure(String category) { //similar to Factory pattern
 		if (category == null) {
@@ -44,17 +40,19 @@ public class MeasureLog {
 		return time;
 	}
 	
+	// Needs to be tested Oscar :D
+	public void replaceTime (String newTime) { //solely used when loading the measureLog from database
+		this.time = newTime;
+	}
+	
+	
 	public static void main(String[] args) {
-
-		
-		int[] test1 = {1,2,4};
-		
-		
-		MeasureLog ML = new MeasureLog(test1);
-		
-		System.out.println(ML.getMeasure("Time"));
-		System.out.println(ML.getTime());
-		
-		
+//		int[] test1 = {1,2,4};
+//		
+//		
+//		MeasureLog ML = new MeasureLog(test1);
+//		
+//		System.out.println(ML.getMeasure("Time"));
+//		System.out.println(ML.getTime());
 	}
 }

@@ -20,8 +20,10 @@ import javax.swing.ListSelectionModel;
 import javax.swing.SwingConstants;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import Login.clientLogin;
+import controller.ClientController;
 import mainFeatures.Client;
 import mainFeatures.Container;
 
@@ -33,27 +35,44 @@ public class clientInterface extends JFrame{
 	private JLabel lblSession;
 	
 	
-	
+	private Client currentClient;
 
-//	private void loadContainers() {
-//		
-//	}
+
 	
 	
 	public clientInterface() {
 				
-		        
+				ClientController.clientLoader();
+				currentClient = ClientController.getClient();
+				
+				
 				setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				setTitle("Client Interface");
 				setPreferredSize(new Dimension(800, 600));
-		
+			
+				
+				//Table things 
+				// loads the containers
+				DefaultTableModel tableModel = new DefaultTableModel(1, 0);
+				JTable testTable = new JTable(tableModel);
+				if (currentClient.getContainers() != null) {
+					for (Container container : currentClient.getContainers()) {
+						if (container != null) {
+							Object[] row = {new JButton(container.toString())};
+							tableModel.addRow(row);
+						}
+					}
+				}
+				
 				
 				// buttons
 				JButton btnContainers = new JButton("Containers");
 				btnContainers.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
+						testTable.setVisible(true);
 						
+						//set visibility for table of containers to true
 					}
 				});
 				
@@ -126,7 +145,7 @@ public class clientInterface extends JFrame{
 
 				
 				
-				lblSession.setText("<html>" + clientLogin.getUsername() + " <i>(" +" Client" + ")</i></html>");
+				lblSession.setText("<html>" + clientLogin.getUsername() + "<i>(" +" Client" + ")</i></html>"); //clientLogin.getUsername() 
 				// table
 				tblInventory = new JTable();
 				tblInventory.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

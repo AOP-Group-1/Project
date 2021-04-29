@@ -6,7 +6,7 @@ import mainFeatures.DBConnection;
 
 public class ContainerLoader {
 	public static String prepareStatement (String OwnerID) {
-		String sql = String.format("select " + "* from container"  + "where" + "container.Ownerid = \"%s\" ;", OwnerID);
+		String sql = String.format("select " + "* from container"  + " where " + "container.Ownerid = \"%s\" ;", OwnerID);
 		return sql;
 	}
 	

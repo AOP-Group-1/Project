@@ -11,7 +11,7 @@ public class Client {
 	String address;
 	String refPer;
 	String password;
-	List<Container> containers;
+	List<Container> containers = new ArrayList<Container>();
 	
 	
 	// change to database stuff
@@ -19,32 +19,8 @@ public class Client {
 	public Map<Integer, ArrayList<String>> dict = new HashMap<Integer, ArrayList<String>>();
 		
 	// constructor for making client id and setting new client details
-	public Client() {
-		
-		
-//		Random rand = new Random();
-//		int upperbound = 10000000;
-//		ID = rand.nextInt(upperbound);
-//		
-//		while (dict.containsKey(ID));
-//			ID = rand.nextInt(upperbound);
-//		
-//		dict.put(ID, new ArrayList<String>());	
-//		
-//		
-//		for(int i = 0; i < 4; i++)
-//			dict.get(ID).add("");			
-//			
-//		this.setName();
-//		this.setEmail();
-//		this.setAddress();
-//		this.setRefPer();		
+	public Client() {		
 		this.ID = UUID.randomUUID().toString();
-		this.name = name;
-		this.email = email;
-		this.address = address;
-		this.refPer = refPer;
-		
 	}
 	
 	// setting details (name, email, address and reference person) and saving in map
@@ -53,8 +29,21 @@ public class Client {
 //	public void setRefPer(String refPer) {
 //		databasename.put(refPer)
 	
+	List<Integer> test;
+	
+	
 	public void addContainer(Container newContainer) {
 		containers.add(newContainer);
+	}
+	
+	//should be tested :)
+	public Container[] getContainers() {
+		Container[] res = {null};
+		if (containers == null) {
+			return res;
+		}
+		
+		return (Container[]) containers.toArray(res);
 	}
 	
 	public void setName(String name) {
@@ -91,10 +80,10 @@ public class Client {
 //	}
 	public void registerClient() {
 		String sql = String.format(
-				"insert into client(Clientid,Name,"
+				"insert into client(Clientid,Password,Name,"
 						+ "Email,Address,Reference_Person) "
-						+ "values(\"%s\",\"%s\",\"%s\",\"%s\",\"%s\");",
-				this.ID, this.name, this.email, this.address, this.refPer);
+						+ "values(\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\");",
+				this.ID,this.password, this.name, this.email, this.address, this.refPer);
 		DBConnection db = new DBConnection();
 		db.update(sql);
 	}
@@ -104,15 +93,17 @@ public class Client {
 		
 		StringBuilder condition = new StringBuilder();
 		if (id != null)
-			condition.append(String.format("M1.ID = \"%s\" and", id));
+			condition.append(String.format("Clientid = \"%s\" and", id));
+//		if (password != null)
+//			condition.append(String.format("Password = \"%s\",and", password));
 		if (name != null)
-			condition.append(String.format("M1.name = \"%s\" and", name));
+			condition.append(String.format("name = \"%s\" and", name));
 		if (email != null)
-			condition.append(String.format("M1.email = \"%s\" and ", email));
+			condition.append(String.format("email = \"%s\" and ", email));
 		if (address != null)
-			condition.append(String.format("M1.address = \"%s\" and ", address));
+			condition.append(String.format("address = \"%s\" and ", address));
 		if (refPer != null)
-			condition.append(String.format("M1.refPer = \"%s\" and ", refPer));
+			condition.append(String.format("refPer = \"%s\" and ", refPer));
 		if (condition.toString() != null) {
 			condition.delete(condition.lastIndexOf("and"), condition.lastIndexOf("and") + 3);
 		}
@@ -148,10 +139,12 @@ public class Client {
 	public static void main(String[] args) {
 		Client client1 = new Client();
 		client1.setName("Sony");
+		client1.setPassword("sonyIsBest");
 		client1.setAddress("Japan");
 		client1.setEmail("Sony@Sony.com");
 		client1.setRefPer("Hasuki sushi");
 		client1.registerClient();
+		//System.out.println(client1.test.isEmpty());
 		
 	}
 	

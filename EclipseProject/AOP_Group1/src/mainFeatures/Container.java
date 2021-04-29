@@ -13,7 +13,6 @@ import java.util.UUID;
  * - Get measures from log
  */
 public class Container {
-	//public int journeyID;
 	private List<Journey> jl = new ArrayList<Journey>(); //Journey
 	private String ContainerID;
 	private String OwnerID;
@@ -21,8 +20,20 @@ public class Container {
 	public Container(Client owner) {
 		this.OwnerID = owner.ID;
 		this.ContainerID = UUID.randomUUID().toString();
+		registerContainer();
 	}
+	
+	public void registerContainer() {
+		String sql = String.format(
+				"insert into container(Containerid,Ownerid) "
+						+ "values(\"%s\",\"%s\");",
+				this.ContainerID,this.OwnerID);
+		DBConnection db = new DBConnection();
+		db.update(sql);
 
+	}
+	
+	//empty constructor should probably be removed
 	public Container(String string) {
 		// TODO Auto-generated constructor stub
 	}
@@ -32,6 +43,11 @@ public class Container {
 	public String getContainerID() {
 		return this.ContainerID;
 	}
+	
+	public String getOwnerID() {
+		return this.OwnerID;
+	}
+	
 	
 	public void addJourney (Journey j) {
 		jl.add(j);
@@ -53,7 +69,13 @@ public class Container {
 		DBConnection db = new DBConnection(); 
 		db.update(sql); //update database with new measurements
 	}
-
+	
+	@Override
+	public String toString() {
+		return ContainerID + ", owned by: " + OwnerID;
+	}
+	
+	
 
 	public List<List<MeasureLog>> getMeasures () { //function to get all measures from a container
 		List<List<MeasureLog>> res = new ArrayList<List<MeasureLog>>();
@@ -66,16 +88,12 @@ public class Container {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-<<<<<<< HEAD
-
 		Container c = new Container("123");
-		Journey j = new Journey("Copenhagen","London","Bananas","DSV");
-=======
+		//Journey j = new Journey("Copenhagen","London","Bananas","DSV");
 		Client client = new Client();
-		Container c = new Container(client);
-		Journey j = new Journey(c.getContainerID(),"customerIDplaceholder","Copenhagen","London","Bananas","DSV");
->>>>>>> ebc2c16a5c0b78f91f63f54fcfdabcbbb6d94447
-		c.addJourney(j);
+		//Container c = new Container(client);
+		//Journey j = new Journey(c.getContainerID(),"customerIDplaceholder","Copenhagen","London","Bananas","DSV");
+		//c.addJourney(j);
 		int[] test1 = {1,2,3};
 		int[] test2 = {2,4,6};
 		MeasureLog ml1 = new MeasureLog(test1); //part of facade to turn int[] into MeasureLog
@@ -84,9 +102,11 @@ public class Container {
 		c.addMeasuresContainer(ml1);
  		c.addMeasuresContainer(ml2);
  		
- 		Journey j2 = new Journey("Copenhagen","London","Bananas","DSV");
- 		c.addJourney(j2);
- 		c.addMeasuresContainer(ml2);
+
+ 		
+ 		//Journey j2 = new Journey("Copenhagen","London","Bananas","DSV");
+ 		//c.addJourney(j2);
+ 		//c.addMeasuresContainer(ml2);
  		
 		System.out.println(c.getMeasures());
 		
