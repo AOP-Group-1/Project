@@ -1,4 +1,9 @@
-﻿Create table customer(
+﻿create user admin identified by "admin";
+create database journey;
+use journey;
+grant all on journey.* to admin;
+
+Create table customer(
 Customerid varchar(40) not null,
 First_name varchar(30) not null,
 Last_name varchar(30) not null,
