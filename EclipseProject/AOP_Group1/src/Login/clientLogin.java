@@ -13,7 +13,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-
+import controller.ClientLoginController;
 import grid.Grid;
 import interfaces.clientInterface;
 import interfaces.initializationInterface;
@@ -46,7 +46,13 @@ public class clientLogin extends JFrame {
 					@SuppressWarnings("deprecation")
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						if(txtLogin.getText().equals(txtPass.getText()) && !txtLogin.getText().isEmpty()) {
+						
+						//use the input clientName to find client's password in the database
+						//
+						String userName = txtLogin.getText();
+						String userPassword = ClientLoginController.loadPassword(userName);
+						System.out.println();
+						if((userPassword != "ERROR USER NOT FOUND") && (userPassword.equals(txtPass.getText())) && !txtLogin.getText().isEmpty()) {
 							clientInterface.clientInterface();
 							dispose();
 							
@@ -70,7 +76,7 @@ public class clientLogin extends JFrame {
 				
 				
 				add(panel);
-				add(new JLabel("ClientId:"), Grid.constraint(0, 0, 5));
+				add(new JLabel("Client Name:"), Grid.constraint(0, 0, 5));
 				add(txtLogin, Grid.constraint(1, 0, 5));
 				add(new JLabel("Password:"), Grid.constraint(0, 1, 5));
 				add(txtPass, Grid.constraint(1, 1, 5));

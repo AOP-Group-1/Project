@@ -74,6 +74,18 @@ public class Client {
 		return ID;
 	}
 	
+	//methods for editing one part of a user's information in the dataBase
+	public void editInfo(String newInfo, String category) {
+		DBConnection db = new DBConnection();
+		// UPDATE `table_name` SET `column_name` = `new_value' [WHERE condition];
+		String sql = ("UPDATE client SET " + category + " = \"" + newInfo +"\" WHERE Clientid = \"" + ID + "\"");
+		db.update(sql); //update the database
+	}
+
+	
+	
+	
+	
 //	public void search() {
 //		// should be changed according to databasing so one can search for id in database or name
 //		Arrays.toString(dict.entrySet().toArray());

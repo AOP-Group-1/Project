@@ -72,6 +72,13 @@ public class companyInterface extends JFrame {
 				}
 			});
 			
+			JButton btnAddContainer = new JButton("Add Container");
+			btnSearchClient.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+				}
+			});
+			
 			
 			
 			JButton btnLogout = new JButton("Logout");
@@ -102,6 +109,7 @@ public class companyInterface extends JFrame {
 			
 			JToolBar toolbar = new JToolBar();
 			toolbar.add(btnAddClient);
+			toolbar.add(btnAddContainer);
 			toolbar.add(btnUpdMeasure);
 			toolbar.add(btnUpdJourney);
 			toolbar.add(btnSearchClient);

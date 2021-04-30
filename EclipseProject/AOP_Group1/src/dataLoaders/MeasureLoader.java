@@ -6,7 +6,7 @@ import mainFeatures.DBConnection;
 
 public class MeasureLoader {
 		public static String prepareStatement (String JourneyID) {
-			String sql = String.format("select " + "* from container_status"  + "where" + "container_status.journeyid = \"%s\" ;", JourneyID);
+			String sql = String.format("select " + "* from container_status"  + " where " + "journeyid = \"%s\" ;", JourneyID);
 			return sql;
 		}
 		

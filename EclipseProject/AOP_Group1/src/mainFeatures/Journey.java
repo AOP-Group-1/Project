@@ -16,7 +16,7 @@ public class Journey {
 	private String contentType;
 	private String company;
 	private String currentLocation;
-	private String journeyComplete;
+	private boolean journeyComplete;
 	private ResultSet travelHistory;
 	private ResultSet allJourneys;
 	public Journey() {
@@ -34,8 +34,8 @@ public class Journey {
 		this.company = company;
 		this.containerID = container.getContainerID();
 		this.clientID = container.getOwnerID();
-		this.journeyComplete = "false";
-		registerJourney(); // should only be used when creating a new journey,
+		this.journeyComplete = false;
+		//registerJourney(); // should only be used when creating a new journey,
 		// but currently creates duplicates in the database during loading as well.
 		// maybe add a bool to decide if creating a new, or loading.
 	}
@@ -44,18 +44,25 @@ public class Journey {
 	public String getJourneyID() {
 		return journeyID;
 	}
+	
+	public void setComplete(boolean completion) {
+		this.journeyComplete = completion;
+	}
 
 	public void registerJourney() {
 		String sql = String.format(
 				"insert into journey(journeyid,containerid,clientid,origin,destination,"
 						+ "content_type,company,complete) "
-						+ "values(\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",%s);",
+						+ "values(\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",%b);",
 				this.journeyID, this.containerID, this.clientID, this.origin, this.destination, this.contentType,
 				this.company, this.journeyComplete);
 		DBConnection db = new DBConnection();
 		db.update(sql);
 	}
 	
+	public boolean getComplete() {
+		return journeyComplete;
+	}
 	
 	//Removed for simplicity
 //	public void updateJourney(String currentLocation,String journeyid) {
@@ -89,37 +96,35 @@ public class Journey {
 		
 		StringBuilder condition = new StringBuilder();
 		if (jid != null)
-			condition.append(String.format("journey.journeyid = \"%s\" and", jid));
+			condition.append(String.format("journeyid = \"%s\" and", jid));
 		if (conid != null)
-			condition.append(String.format("journey.containerid = \"%s\" and", conid));
+			condition.append(String.format("Containerid = \"%s\" and", conid));
 		if (cusid != null)
-			condition.append(String.format("journey.clientid = \"%s\" and ", cusid));
+			condition.append(String.format("Clientid = \"%s\" and ", cusid));
 		if (ori != null)
-			condition.append(String.format("journey.origin = \"%s\" and ", ori));
+			condition.append(String.format("Origin = \"%s\" and ", ori));
 		if (dest != null)
-			condition.append(String.format("journey.destination = \"%s\" and ", dest));
+			condition.append(String.format("Destination = \"%s\" and ", dest));
 		if (ctype != null)
-			condition.append(String.format("journey.content_type = \"%s\" and ", ctype));
+			condition.append(String.format("Content_type = \"%s\" and ", ctype));
 		if (comp != null)
-			condition.append(String.format("journey.company = \"%s\" and ", comp));
-//		if (clocation != null)
-//			condition.append(String.format("journey.current_location = \"%s\" and ", clocation));
-		if (sdate != null)
-			condition.append(String.format("journey.start_date = \"%s\" and ", sdate));
-		if (edate != null)
-			condition.append(String.format("journey.end_date = \"%s\" and ", edate));
+			condition.append(String.format("Company = \"%s\" and ", comp));
+//		if (sdate != null)
+//			condition.append(String.format("Journey.start_date = \"%s\" and ", sdate));
+//		if (edate != null)
+//			condition.append(String.format("journey.end_date = \"%s\" and ", edate));
 		if (complete != null) {
 			if (complete.equals("true")) {
-				condition.append(String.format("journey.complete = %d and ", 1));
+				condition.append("journey.complete = true and ");
 			} else {
-				condition.append(String.format("journey.complete = %d and ", 0));
+				condition.append("journey.complete = false and ");
 			}
 		}
 
 		if (condition.toString() != null) {
 			condition.delete(condition.lastIndexOf("and"), condition.lastIndexOf("and") + 5);
 		}
-		String sql=operation+"* from "+tableName+" where "+condition.toString()+";";
+		String sql=operation+" * from "+tableName+" where "+condition.toString()+";";
 		return sql;
 	}
 	
@@ -131,8 +136,8 @@ public class Journey {
 			String ctype, String comp, String sdate, String edate, String complete) {
 		DBConnection db = new DBConnection();
 		String sql=prepareStatement("select","journey",jid,conid,cusid,ori,dest,ctype,comp,sdate,edate,complete);
-		ResultSet s = db.read(sql);
-		return s;
+		ResultSet rs = db.read(sql);
+		return rs;
 
 	}
 	@Override
@@ -181,14 +186,19 @@ public class Journey {
 		Client client1 = new Client();
 		client1.setAddress("DTU");
 		client1.setEmail("dtu@dtu");
-		client1.setName("bancorp");
+		client1.setName("Sofaer");
 		client1.setRefPer("bananaPerson");
 		client1.setPassword("banana");
 		client1.registerClient();
+		client1.editInfo("happy","Name");
 		Container container1 = new Container(client1);
+		container1.registerContainer();
 		Journey j1 = new Journey(container1,"denmark","us","banana","bancorp");
+		j1.registerJourney();
  		System.out.println(container1);
 		
+ 		
+ 		
 		//j1.registerJourney();
 //		ResultSet rs = Journey.searchForJourney(j1.journeyID, null, null, null, null, null, null, null, null, null);
 //		try {

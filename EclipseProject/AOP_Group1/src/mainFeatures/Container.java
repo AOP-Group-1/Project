@@ -20,8 +20,16 @@ public class Container {
 	public Container(Client owner) {
 		this.OwnerID = owner.ID;
 		this.ContainerID = UUID.randomUUID().toString();
-		registerContainer();
+		//registerContainer(); Leave this method for when we want to upload the container to the database,
+		// i.e. "Add new container"
 	}
+	
+	// constructor for when we are loading the containers
+	public Container(Client owner, String loadedContainerID) {
+		this.OwnerID = owner.ID;
+		this.ContainerID = loadedContainerID;
+	}
+
 	
 	public void registerContainer() {
 		String sql = String.format(
@@ -31,6 +39,21 @@ public class Container {
 		DBConnection db = new DBConnection();
 		db.update(sql);
 
+	}
+	
+	
+	public boolean notOnJourney() {
+		if (jl.isEmpty()) {
+			System.out.println("(containerClass) Container has no journeys");
+			return true;
+		}
+		boolean allComplete = true;
+		for (Journey journey : jl) {
+			allComplete = allComplete && (journey.getComplete());
+		}
+		return allComplete;
+		
+		
 	}
 	
 	//empty constructor should probably be removed
@@ -72,7 +95,7 @@ public class Container {
 	
 	@Override
 	public String toString() {
-		return ContainerID + ", owned by: " + OwnerID;
+		return ContainerID.substring(0,6) + ", owned by: " + OwnerID.substring(0,6);
 	}
 	
 	

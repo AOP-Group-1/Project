@@ -42,6 +42,7 @@ public class clientInterface extends JFrame{
 	
 	public clientInterface() {
 				
+				//loads all the client info by using the client log-in name
 				ClientController.clientLoader();
 				currentClient = ClientController.getClient();
 				
@@ -51,18 +52,10 @@ public class clientInterface extends JFrame{
 				setPreferredSize(new Dimension(800, 600));
 			
 				
-				//Table things 
 				// loads the containers
-				DefaultTableModel tableModel = new DefaultTableModel(1, 0);
-				JTable testTable = new JTable(tableModel);
-				if (currentClient.getContainers() != null) {
-					for (Container container : currentClient.getContainers()) {
-						if (container != null) {
-							Object[] row = {new JButton(container.toString())};
-							tableModel.addRow(row);
-						}
-					}
-				}
+				
+				// wipe away the memory of previous logged in user
+				// here or at logout button
 				
 				
 				// buttons
@@ -70,27 +63,28 @@ public class clientInterface extends JFrame{
 				btnContainers.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						testTable.setVisible(true);
+						myTableModel.wipeData();
+						myTableModel.loadData(currentClient);
+						add(new JScrollPane(myTableModel.Table()), BorderLayout.CENTER);
+						setVisible(true);
 						
-						//set visibility for table of containers to true
 					}
 				});
 				
 				
-				JButton btnAddContainers = new JButton("Add Container");
-				btnAddContainers.addActionListener(new ActionListener() {
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						
-					}
-				});
+
 				
 				
 				JButton btnAddJourney = new JButton("Add Journey");
 				btnAddJourney.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						
+						//show available containers
+						AvailableContainerFrame.showAvailableContainers();
+						setVisible(true);
+						//addJourneyFrame.openAddJourneyWindow();
+						//setVisible(true);
+						//Add checks to see if origin and destination are actual countries
 					}
 				});
 				
@@ -98,6 +92,11 @@ public class clientInterface extends JFrame{
 				btnAEditInfo.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
+						editUserInfoFrame.test();
+						setVisible(true);
+						// pop-up window with 5 buttons to edit basic user info
+						// Name, Password, Email, Address, Reference Person
+						// click a button, text field appears
 						
 					}
 				});
@@ -111,6 +110,7 @@ public class clientInterface extends JFrame{
 						int confirmed = JOptionPane.showConfirmDialog(null, "Are you sure you want to logout?","EXIT",JOptionPane.YES_NO_OPTION);
 			
 						if (confirmed == JOptionPane.YES_OPTION) {
+							myTableModel.wipeData();
 							clientLogin.clientLogin();
 							dispose();
 						}
@@ -128,9 +128,11 @@ public class clientInterface extends JFrame{
 				lblSession = new JLabel();
 				lblSession.setHorizontalAlignment(SwingConstants.RIGHT);
 				
+				
+				// find some way to update this when confirm button is clicked.
+				lblSession.setText("<html>" + currentClient.getName() + "<i>(" +" Client" + ")</i></html>");
 				JToolBar toolbar = new JToolBar();
 				toolbar.add(btnContainers, BorderLayout.CENTER);
-				toolbar.add(btnAddContainers);
 				toolbar.add(btnAddJourney);
 				toolbar.add(btnAEditInfo);
 				toolbar.add(Box.createHorizontalGlue());
@@ -145,7 +147,6 @@ public class clientInterface extends JFrame{
 
 				
 				
-				lblSession.setText("<html>" + clientLogin.getUsername() + "<i>(" +" Client" + ")</i></html>"); //clientLogin.getUsername() 
 				// table
 				tblInventory = new JTable();
 				tblInventory.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
