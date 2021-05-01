@@ -33,7 +33,7 @@ public class editUserInfoFrame extends JFrame {
     private static JTextField Reference_Person;
     
     public editUserInfoFrame() {
-		setAlwaysOnTop(true);
+		toFront();
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(new Dimension(310, 230));
 		setTitle("Edit info");

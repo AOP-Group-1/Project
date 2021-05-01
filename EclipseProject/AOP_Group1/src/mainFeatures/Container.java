@@ -42,6 +42,10 @@ public class Container {
 	}
 	
 	
+	public List<Journey> getJourneys() {
+		return jl;
+	}
+	
 	public boolean notOnJourney() {
 		if (jl.isEmpty()) {
 			System.out.println("(containerClass) Container has no journeys");
@@ -84,7 +88,7 @@ public class Container {
 		}
 		jl.get(numOfJourneys - 1).addMeasureJourney(measures); //add the measurements to the current journey
 		
-		String sql = String.format("insert into container_status (journeyid, Internal_temperature, Humidity, Atmostpheric_pressure, Time) values(\"%s\",%d,%d,%d,\"%s\");", 
+		String sql = String.format("insert into container_status (journeyid, Internal_temperature, Humidity, Atmospheric_pressure, Time) values(\"%s\",%d,%d,%d,\"%s\");", 
 				jl.get(numOfJourneys - 1).getJourneyID(), measures.getMeasure("temperature"), 
 														  measures.getMeasure("humidity"), 
 														  measures.getMeasure("pressure"),

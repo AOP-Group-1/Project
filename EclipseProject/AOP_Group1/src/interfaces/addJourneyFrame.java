@@ -13,12 +13,15 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import controller.ClientController;
 import controller.ClientEditController;
 import grid.Grid;
 import mainFeatures.Client;
+import mainFeatures.Container;
+import mainFeatures.Journey;
 
 public class addJourneyFrame extends JFrame {
 
@@ -39,7 +42,7 @@ public class addJourneyFrame extends JFrame {
 	    
 	    
 	    public addJourneyFrame() {
-			setAlwaysOnTop(true);
+			
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			setSize(new Dimension(310, 230));
 			setTitle("Add Journey");
@@ -56,14 +59,20 @@ public class addJourneyFrame extends JFrame {
 //			
 			JPanel panel = new JPanel();
 //			
-			add(new JLabel("Origin :"), Grid.constraint(0, 0, 5));
-			add(origin,Grid.constraint(1, 0, 5));
-			add(new JLabel("Destination:"), Grid.constraint(0, 1, 5));
-			add(destination,Grid.constraint(1, 1, 5));
-			add(new JLabel("contentType:"), Grid.constraint(0, 2, 5));
-			add(contentType,Grid.constraint(1, 2, 5));
-			add(panel);
 
+			//buttons
+			JButton btnBack = new JButton("Back");
+			btnBack.addActionListener(new ActionListener() {
+				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					AvailableContainerFrame.showAvailableContainers();
+					setVisible(true);
+					dispose();
+				}
+			});
+			
+			
 			JButton btnConfirm = new JButton("Confirm");
 			//btnLogout.setBounds(670, 540, 120, 30);
 			btnConfirm.addActionListener(new ActionListener() {
@@ -78,7 +87,28 @@ public class addJourneyFrame extends JFrame {
 						allFilled = allFilled && !(txt.getText().isBlank());
 					}
 					if (allFilled) {
-						//Client.
+						List<Container> containerList = new ArrayList<Container>();
+						JTable table = AvaibleContainersTableModel.Table();
+						int nRows = table.getModel().getRowCount();
+						System.out.println("n of rows: " + nRows);
+						for (int i = 0; i < nRows; i++) {
+							if ((boolean) table.getValueAt(i, 1)) {
+								containerList.add((Container) table.getValueAt(i, 0)); //add the selected containers to the list
+							}
+						}
+						for (Container container : containerList) {				
+							//(Container container, String origin, String destination, String contentType,
+							//String company)
+							Journey j = new Journey(container, origin.getText(), destination.getText(), contentType.getText(), currentClient.getName());
+							j.registerJourney();
+							System.out.println("addJourneyFrame: " + container);
+							System.out.println(container.notOnJourney());
+							container.addJourney(j);
+							currentClient.addContainer(container);
+						}
+						
+						
+						
 					}
 					else 
 						JOptionPane.showMessageDialog(panel, "Please fill out all fields <3", "Journey error", JOptionPane.ERROR_MESSAGE);
@@ -89,17 +119,26 @@ public class addJourneyFrame extends JFrame {
 				}
 			});
 			
+			add(new JLabel("Origin :"), Grid.constraint(0, 0, 5));
+			add(origin,Grid.constraint(1, 0, 5));
+			add(new JLabel("Destination:"), Grid.constraint(0, 1, 5));
+			add(destination,Grid.constraint(1, 1, 5));
+			add(new JLabel("contentType:"), Grid.constraint(0, 2, 5));
+			add(contentType,Grid.constraint(1, 2, 5));
+			add(panel);
+			add(btnBack,Grid.constraint(-1, 6, 5));
 			add(btnConfirm, Grid.constraint(1, 6, 5));
 			
-			pack();
+			toFront();
 			setLocationRelativeTo(null);
-			
+			pack();
 			
 	    }
 	    
 	    
 		public static void openAddJourneyWindow() {
 			addJourneyFrame window = new addJourneyFrame();
+			
 			window.setVisible(true);
 			
 		}

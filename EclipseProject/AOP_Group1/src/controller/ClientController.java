@@ -72,6 +72,7 @@ static private Client clientInstance;
 						MeasureLog ml = new MeasureLog(measures);
 						ml.replaceTime(measureTime);
 						j.addMeasureJourney(ml);
+						System.out.println("ClientController: Loaded measure: " + ml.getMeasure("temperature"));
 					}
 				}
 				

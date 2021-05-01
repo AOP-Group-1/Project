@@ -42,7 +42,8 @@ public class companyInterface extends JFrame {
 			btnAddClient.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					
+					addClientFrame.showAddClientFrame();
+					setVisible(true);
 				}
 			});
 			

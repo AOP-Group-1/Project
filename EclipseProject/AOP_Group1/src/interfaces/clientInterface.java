@@ -42,6 +42,8 @@ public class clientInterface extends JFrame{
 	
 	public clientInterface() {
 				
+		
+				
 				//loads all the client info by using the client log-in name
 				ClientController.clientLoader();
 				currentClient = ClientController.getClient();
@@ -50,7 +52,8 @@ public class clientInterface extends JFrame{
 				setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				setTitle("Client Interface");
 				setPreferredSize(new Dimension(800, 600));
-			
+				
+				
 				
 				// loads the containers
 				
@@ -65,24 +68,40 @@ public class clientInterface extends JFrame{
 					public void actionPerformed(ActionEvent e) {
 						myTableModel.wipeData();
 						myTableModel.loadData(currentClient);
-						add(new JScrollPane(myTableModel.Table()), BorderLayout.CENTER);
-						setVisible(true);
 						
+						
+						//Reload this data after having added a journey
+						
+						JTable table = myTableModel.Table();
+						JScrollPane jsPane = new JScrollPane(table);
+						add(jsPane, BorderLayout.CENTER);
+						table.setFillsViewportHeight(true);
+												
+						//add(newTable,BorderLayout.CENTER);
+						
+//						repaint();
+//						revalidate();
+						pack();
+						setVisible(true);
+						//
 					}
 				});
 				
 				
 
-				
+				//Should not be able to open multiple "add journey" windows at once
 				
 				JButton btnAddJourney = new JButton("Add Journey");
 				btnAddJourney.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						//show available containers
+						AvaibleContainersTableModel.wipeData(); 
+						AvaibleContainersTableModel.loadData();
 						AvailableContainerFrame.showAvailableContainers();
 						setVisible(true);
-						//addJourneyFrame.openAddJourneyWindow();
+						
+//						//addJourneyFrame.openAddJourneyWindow();
 						//setVisible(true);
 						//Add checks to see if origin and destination are actual countries
 					}
@@ -135,7 +154,7 @@ public class clientInterface extends JFrame{
 				toolbar.add(btnContainers, BorderLayout.CENTER);
 				toolbar.add(btnAddJourney);
 				toolbar.add(btnAEditInfo);
-				toolbar.add(Box.createHorizontalGlue());
+				//toolbar.add(Box.createHorizontalGlue());
 				toolbar.add(lblSession);
 				add(toolbar, BorderLayout.NORTH);
 				
@@ -147,19 +166,19 @@ public class clientInterface extends JFrame{
 
 				
 				
-				// table
-				tblInventory = new JTable();
-				tblInventory.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-				tblInventory.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-					@Override
-					public void valueChanged(ListSelectionEvent e) {
-						
-						
-					}
-				
-				});
-				add(new JScrollPane(tblInventory), BorderLayout.CENTER);
-				
+//				// table
+//				tblInventory = new JTable();
+//				tblInventory.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+//				tblInventory.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+//					@Override
+//					public void valueChanged(ListSelectionEvent e) {
+//						
+//						
+//					}
+//				
+//				});
+//				add(new JScrollPane(tblInventory), BorderLayout.CENTER);
+//				
 				pack();
 				setLocationRelativeTo(null);
 			}

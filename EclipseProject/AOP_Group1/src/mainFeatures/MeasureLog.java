@@ -21,6 +21,18 @@ public class MeasureLog {
 		this.time = dtf.format(now);	
 	}
 	
+	// please maybe test this as well, 
+	public void registerMeasureLog (Journey journey) { //construct a MeasureLog object from an int[] in the facade
+		
+		String sql = String.format("insert into container_status (journeyid, Internal_temperature, Humidity, Atmospheric_pressure, Time) values(\"%s\",%d,%d,%d,\"%s\");", 
+				journey.getJourneyID(), measures[0], measures[1], measures[2], getTime());
+		DBConnection db = new DBConnection(); 
+		db.update(sql); //update database with new measurements
+	}
+	
+	
+	
+	
 	public int getMeasure(String category) { //similar to Factory pattern
 		if (category == null) {
 			return 0;
