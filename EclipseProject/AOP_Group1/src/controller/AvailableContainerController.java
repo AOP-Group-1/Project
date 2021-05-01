@@ -14,8 +14,7 @@ public class AvailableContainerController {
 		//Container[] availableContainers;
 		
 		for (Container container : client.getContainers()) {
-			System.out.println(container.notOnJourney());
-			if (container.notOnJourney())
+			if ((container != null) && container.notOnJourney())
 				containerList.add(container);
 			
 		}
