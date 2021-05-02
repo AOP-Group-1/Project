@@ -205,6 +205,7 @@ public static Object[] loadClients() {
 								Container placeHolderContainer = new Container(placeHolderClient,containerID);
 								Journey j = new Journey(placeHolderContainer,journeyOrigin, 
 										journeyDestination, journeyContentType, journeyName);
+								j.replaceID(journeyID);
 								MeasureLog ml = new MeasureLog(new int[] {dataTemperature,dataHumidity, dataPressure});
 								j.addMeasureJourney(ml);
 								ml.registerMeasureLog(j);
