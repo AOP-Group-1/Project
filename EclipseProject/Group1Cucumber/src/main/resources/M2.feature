@@ -17,21 +17,15 @@
 ## (Comments)
 #Sample Feature Definition Template
 @tag
-Feature: Reading measured values
+Feature: Registering containers for journeys
 
   @tag1
-  Scenario: Successfully reading values from container log
-    Given a container with logged values
-    And user requests to see the logged data
-    Then each log contains 3 integers
-    And you can search for temperature, humidity and pressure
+  Scenario: Register container for journey
+    Given a container
+    Then the client registers it for a journey
+    Then a journey ID "string" is auto generated
+    And submit the registration
     
-  Scenario: Unsuccessfully reading values from container log
-  	Given a container with logged values2
-  	And user requests to see weight
-  	And also requests an empty input
-  	
-  Scenario: Trying to read values from container with no log
-  	Given a container with no logged values
-  	And user requests values
-
+  Scenario: Track container
+  	Given a container on a journey;
+  	Then the client searches for the container ID

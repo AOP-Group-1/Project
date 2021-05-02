@@ -17,18 +17,20 @@
 ## (Comments)
 #Sample Feature Definition Template
 @tag
-Feature: Assign measurements to container log
+Feature: Tracking internal container status
 
   @tag1
-  Scenario: Container is properly set up to receive measurements
-    Given a container with a "string" containerID
-    Then container is provided with a journey
-    When a measure log is created
-    Then the measure log is added to the journey
-    
-  Scenario: Container is NOT properly set up to receive measurements
-  	Given a container
-  	And measurements are added without container having a journey
-		#Maybe addd a "Then" and have the facade do something
-
+  Scenario: Add measurements to container
+    Given a container on a journey
+    And a set of internal measurements are measured
+    Then the measurements are logged
+   
+  Scenario: Check internal status
+  	Given a container on a journey_
+  	And the client want to check the internal status of a specific container
+  	Then the client searches for the internal status
+  	
+  Scenario: Check for available containers
+  	Given a client need an avaiable container
+  	Then client searches for available containers
 

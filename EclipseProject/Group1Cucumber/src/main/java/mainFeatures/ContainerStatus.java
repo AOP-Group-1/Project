@@ -1,3 +1,4 @@
+package mainFeatures;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,9 +19,9 @@ public class ContainerStatus {
 	}
 	
 	
-//	public List<MeasureLog> getMeasure() {
-//		return measures;
-//	}
+	public List<MeasureLog> getMeasure() {
+		return measures;
+	}
 
 }
 
