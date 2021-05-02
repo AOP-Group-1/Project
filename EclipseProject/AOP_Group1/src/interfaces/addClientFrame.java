@@ -14,16 +14,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import controller.ClientController;
-import controller.ClientEditController;
+
 import grid.Grid;
 import mainFeatures.Client;
 
 public class addClientFrame extends JFrame {
 
-	
-	
-	 private static JTextField Name;
+	private static final long serialVersionUID = -8197384896405094748L;
+	private static JTextField Name;
 	    private static JTextField Password;
 	    private static JTextField Email;
 	    private static JTextField Address;
@@ -42,9 +40,7 @@ public class addClientFrame extends JFrame {
 			Email = new JTextField(20);
 			Address = new JTextField(20);
 			Reference_Person = new JTextField(20);
-//			JPanel panel = new JPanel();
-//			panel.setBounds(0, 0, 313, 250);
-//			panel.setLayout(null);
+
 			
 			List<JTextField> textFields = new ArrayList<JTextField>();
 			List<String> textFieldNames = new ArrayList<String>();
@@ -60,8 +56,8 @@ public class addClientFrame extends JFrame {
 			textFields.add(Reference_Person);
 			textFieldNames.add("Reference_Person");
 			
-			//add(panel);
-			// for loop for cleaner programming
+			
+
 			add(new JLabel("Name"), Grid.constraint(0, 0, 5));
 			add(Name,Grid.constraint(1, 0, 5));
 			add(new JLabel("Password:"), Grid.constraint(0, 1, 5));
@@ -76,12 +72,12 @@ public class addClientFrame extends JFrame {
 			
 			
 			JButton btnConfirm = new JButton("Confirm");
-			//btnLogout.setBounds(670, 540, 120, 30);
+
 			btnConfirm.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					
-					//check that all fields are filled out and unique name (maybe more)
+					//check that all fields are filled out and unique name
 					
 					boolean allFilled = true;
 					for (int i = 0 ; i < textFields.size() ; i++) {
@@ -107,10 +103,6 @@ public class addClientFrame extends JFrame {
 						JPanel panel = new JPanel();
 						JOptionPane.showMessageDialog(panel, "Please fill out all text fields", "Filling Error", JOptionPane.ERROR_MESSAGE);
 					}
-//						if (!(txt.getText().isEmpty())) {
-//							ClientEditController.editClientInfo(currentClient, txt.getText(), textFieldNames.get(i));
-//						}
-//					}
 					
 					
 				}

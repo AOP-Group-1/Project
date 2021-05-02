@@ -1,41 +1,34 @@
 package interfaces;
 
 import java.awt.BorderLayout;
-import java.awt.Panel;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.NumberFormat;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JFormattedTextField;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
+
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Document;
-import javax.swing.text.NumberFormatter;
-import javax.swing.text.PlainDocument;
 
-import controller.ClientController;
-import controller.ClientEditController;
+
 import mainFeatures.Client;
 import mainFeatures.Container;
-import mainFeatures.Journey;
-import mainFeatures.MeasureLog;
+
 
 public class addContainerFrame extends JFrame {
 
-	
+	private static final long serialVersionUID = -5869922442185246742L;
 	static String[] columns = new String[] {
 			"Client ID", "Client Name", "Client Email","Address", "Reference Person"
 	};
@@ -58,7 +51,6 @@ public class addContainerFrame extends JFrame {
 				tempStorage.add(newClient);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -86,8 +78,10 @@ public class addContainerFrame extends JFrame {
     	}
     	
     	DefaultTableModel tableModel = new DefaultTableModel(tableData,columns) {
-    		
-    		@Override
+
+			private static final long serialVersionUID = -2347600245455810714L;
+
+			@Override
     		public boolean isCellEditable(int row, int column) {
     			return false;
     		}
@@ -109,20 +103,18 @@ public class addContainerFrame extends JFrame {
 
 		NumberField nContainerField = new NumberField(4);		
 		
-		//
+
 		
 		JButton btnConfirm = new JButton("Confirm");
-		//btnLogout.setBounds(670, 540, 120, 30);
+		
 		btnConfirm.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//Get integer in the nContainerField (remove "-") 
-				//for all selected clients:
-				//add a container with their ID to the database.
-				int row = table.getSelectedRow();
+
+				
                 
 				if (nContainerField.getText().isBlank()) {
-					//Show error panel
+					
 					
 				}
 				else {
@@ -131,13 +123,12 @@ public class addContainerFrame extends JFrame {
 					
 					int numContainers = Integer.parseInt(strNumContainers);
 					
-				//https://stackoverflow.com/a/27287881 
+				//credits to: https://stackoverflow.com/a/27287881 
 				    if (table.getRowCount() > 0) {
 				        if (table.getSelectedRowCount() > 0) {
 				            int selectedRow[] = table.getSelectedRows();
 				            for (int i : selectedRow) {
 				            	String clientId = (table.getValueAt(i, 0).toString());
-				                System.out.println("addContainerFrame " + clientId);
 				                Client placeHolderClient = new Client();
 				                placeHolderClient.replaceID(clientId);
 				                for (int j = 0; j < numContainers; j++) {
@@ -149,7 +140,7 @@ public class addContainerFrame extends JFrame {
 				            }
 				        }
 				    }
-				//Journey journey = (Journey) (table.getValueAt(row, 0)); 
+				
 				}
 				
 			}
@@ -168,16 +159,7 @@ public class addContainerFrame extends JFrame {
 	
     	
     	
-		
-		//load the clients
-		
-		//create a table with their data
-		
-		// selectable table
-		
-		//textfield for number of containers
-		
-		//confirm button
+	
 		
 		
 		

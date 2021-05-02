@@ -22,9 +22,7 @@ import Login.companyLogin;
 
 
 public class initializationInterface extends JFrame {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private ButtonGroup group;
 	private JPanel panel;

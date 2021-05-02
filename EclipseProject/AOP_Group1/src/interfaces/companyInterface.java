@@ -29,10 +29,7 @@ public class companyInterface extends JFrame {
 	private JLabel lblSession;
 	
 	public companyInterface() {
-		
-		
-		    
-	
+
 			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			setTitle("Company Interface");
 			setPreferredSize(new Dimension(800, 600));
@@ -51,10 +48,7 @@ public class companyInterface extends JFrame {
 			btnAddContainer.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					
-					// Open frame with table
-					// of all clients (Selectable)
-					// 
+
 					
 					addContainerFrame.showAddContainerFrame();
 					setVisible(true);
@@ -70,8 +64,7 @@ public class companyInterface extends JFrame {
 					
 					AddMeasurementFrame.showAddMeasurementFrame();
 					setVisible(true);
-					//Same idea as Update Journey
-					//Except with three text fields instead of one
+
 					
 				}
 			});
@@ -96,12 +89,7 @@ public class companyInterface extends JFrame {
 					
 					searchBoxFrame.showSearchBox();
 					setVisible(true);
-					
-					//Dialogue box frame
-					//click "search " (confirm) button
-					//dispose dialogue box 
-					//then show table with all clients matching search.
-					
+
 					
 				}
 			});
@@ -112,7 +100,6 @@ public class companyInterface extends JFrame {
 			
 			JButton btnLogout = new JButton("Logout");
 
-			//btnLogout.setBounds(670, 540, 120, 30);
 			btnLogout.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -123,7 +110,6 @@ public class companyInterface extends JFrame {
 						dispose();
 					}
 					else if (confirmed == JOptionPane.NO_OPTION){
-						//remove(confirmed);
 					}
 				   
 					

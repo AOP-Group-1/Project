@@ -1,7 +1,6 @@
 package interfaces;
 
-import java.awt.BorderLayout;
-import java.awt.Component;
+
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -12,13 +11,10 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+
 import javax.swing.JTextField;
 
-import Login.clientLogin;
+
 import controller.ClientController;
 import controller.ClientEditController;
 import grid.Grid;
@@ -26,7 +22,8 @@ import mainFeatures.Client;
 
 public class editUserInfoFrame extends JFrame {
 
-    private static JTextField Name;
+	private static final long serialVersionUID = 249545332907396226L;
+	private static JTextField Name;
     private static JTextField Password;
     private static JTextField Email;
     private static JTextField Address;
@@ -44,9 +41,7 @@ public class editUserInfoFrame extends JFrame {
 		Email = new JTextField(20);
 		Address = new JTextField(20);
 		Reference_Person = new JTextField(20);
-//		JPanel panel = new JPanel();
-//		panel.setBounds(0, 0, 313, 250);
-//		panel.setLayout(null);
+
 		
 		List<JTextField> textFields = new ArrayList<JTextField>();
 		List<String> textFieldNames = new ArrayList<String>();
@@ -62,8 +57,7 @@ public class editUserInfoFrame extends JFrame {
 		textFields.add(Reference_Person);
 		textFieldNames.add("Reference_Person");
 		
-		//add(panel);
-		// for loop for cleaner programming
+
 		add(new JLabel("Edit name:"), Grid.constraint(0, 0, 5));
 		add(Name,Grid.constraint(1, 0, 5));
 		add(new JLabel("Edit Password:"), Grid.constraint(0, 1, 5));
@@ -78,7 +72,6 @@ public class editUserInfoFrame extends JFrame {
 		
 		
 		JButton btnConfirm = new JButton("Confirm");
-		//btnLogout.setBounds(670, 540, 120, 30);
 		btnConfirm.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {

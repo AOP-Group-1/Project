@@ -14,7 +14,7 @@ public class Client {
 	List<Container> containers = new ArrayList<Container>();
 	
 	
-	// change to database stuff
+
 	// map with multiple values per key
 	public Map<Integer, ArrayList<String>> dict = new HashMap<Integer, ArrayList<String>>();
 		
@@ -23,11 +23,7 @@ public class Client {
 		this.ID = UUID.randomUUID().toString();
 	}
 	
-	// setting details (name, email, address and reference person) and saving in map
-	
-	// for example like this, when doing the data base but idk
-//	public void setRefPer(String refPer) {
-//		databasename.put(refPer)
+
 	
 	List<Integer> test;
 	
@@ -36,7 +32,6 @@ public class Client {
 		containers.add(newContainer);
 	}
 	
-	//should be tested :)
 	public Container[] getContainers() {
 		Container[] res = {null};
 		if (containers == null) {
@@ -92,7 +87,6 @@ public class Client {
 	//methods for editing one part of a user's information in the dataBase
 	public void editInfo(String newInfo, String category) {
 		DBConnection db = new DBConnection();
-		// UPDATE `table_name` SET `column_name` = `new_value' [WHERE condition];
 		String sql = ("UPDATE client SET " + category + " = \"" + newInfo +"\" WHERE Clientid = \"" + ID + "\"");
 		db.update(sql); //update the database
 	}
@@ -101,10 +95,7 @@ public class Client {
 	
 	
 	
-//	public void search() {
-//		// should be changed according to databasing so one can search for id in database or name
-//		Arrays.toString(dict.entrySet().toArray());
-//	}
+
 	public void registerClient() {
 		String sql = String.format(
 				"insert into client(Clientid,Password,Name,"
@@ -178,7 +169,6 @@ public class Client {
 		client1.setEmail("Sony@Sony.com");
 		client1.setRefPer("Hasuki sushi");
 		client1.registerClient();
-		//System.out.println(client1.test.isEmpty());
 		
 	}
 	

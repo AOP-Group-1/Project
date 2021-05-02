@@ -4,7 +4,7 @@ import java.awt.Dimension;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.ResultSet;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +17,6 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import controller.ClientController;
-import controller.ClientEditController;
 import grid.Grid;
 import mainFeatures.Client;
 import mainFeatures.Container;
@@ -25,21 +24,12 @@ import mainFeatures.Journey;
 
 public class addJourneyFrame extends JFrame {
 
-
-
-	    private static JTextField origin;
+	private static final long serialVersionUID = -1176466337113915072L;
+		private static JTextField origin;
 	    private static JTextField destination;
 	    private static JTextField contentType;
 	    
-//	    private String origin;
-//		private String destination;
-//		private String contentType;
-//		private String company;
-//		private String currentLocation;
-//		private String journeyComplete;
-//		private ResultSet travelHistory;
-//		private ResultSet allJourneys;
-	    
+
 	    
 	    public addJourneyFrame() {
 			
@@ -49,17 +39,16 @@ public class addJourneyFrame extends JFrame {
 			setLayout(new GridBagLayout());
 			
 			List<JTextField> textFields = new ArrayList<JTextField>();
-			List<String> textFieldNames = new ArrayList<String>();
 			origin = new JTextField(20);
 			destination = new JTextField(20);
 			contentType = new JTextField(20);
 			textFields.add(origin);
 			textFields.add(destination);
 			textFields.add(contentType);
-//			
+			
 			JPanel panel = new JPanel();
-//			
 
+			
 			//buttons
 			JButton btnBack = new JButton("Back");
 			btnBack.addActionListener(new ActionListener() {
@@ -74,7 +63,6 @@ public class addJourneyFrame extends JFrame {
 			
 			
 			JButton btnConfirm = new JButton("Confirm");
-			//btnLogout.setBounds(670, 540, 120, 30);
 			btnConfirm.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -88,10 +76,8 @@ public class addJourneyFrame extends JFrame {
 					}
 					if (allFilled) {
 						List<Container> containerList = new ArrayList<Container>();
-//						JTable table = AvaibleContainersTableModel.Table();
 						JTable table = AvaibleContainersTableModel.tblInventory;
 						int nRows = table.getModel().getRowCount();
-						System.out.println("n of rows: " + nRows);
 						for (int i = 0; i < nRows; i++) {
 							if ((boolean) table.getValueAt(i, 1)) {
 								containerList.add((Container) table.getValueAt(i, 0)); //add the selected containers to the list
@@ -99,13 +85,10 @@ public class addJourneyFrame extends JFrame {
 							
 						}
 						for (Container container : containerList) {				
-							//(Container container, String origin, String destination, String contentType,
-							//String company)
-							System.out.println("Registered journey");
+							
 							Journey j = new Journey(container, origin.getText(), destination.getText(), contentType.getText(), currentClient.getName());
 							j.registerJourney();
-							System.out.println("addJourneyFrame: " + container);
-							System.out.println(container.notOnJourney());
+							
 							container.addJourney(j);
 							currentClient.addContainer(container);
 						}

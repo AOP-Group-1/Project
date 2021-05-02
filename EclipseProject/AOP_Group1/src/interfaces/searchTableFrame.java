@@ -14,9 +14,8 @@ import javax.swing.table.DefaultTableModel;
 import mainFeatures.Client;
 
 public class searchTableFrame extends JFrame {
-	
-	
 
+	private static final long serialVersionUID = -6753972059963193857L;
 	static List<Client> tempStorage = new ArrayList<Client>();
 	static String[] columns = new String[] {
 			 "Client ID", "Client Name", "Client Email","Address", "Reference Person"
@@ -59,7 +58,10 @@ public class searchTableFrame extends JFrame {
 		Object[][] tableData = null;
 		
 		DefaultTableModel tableModel = new DefaultTableModel(tableData,columns) {
-    		@Override
+
+			private static final long serialVersionUID = 6912517705964795747L;
+
+			@Override
     		public boolean isCellEditable(int row, int column) {
     			return false;
     		}
@@ -79,7 +81,10 @@ public class searchTableFrame extends JFrame {
 	    	
 	    	tableModel = new DefaultTableModel(tableData,columns) {
 	    		
-	    		@Override
+
+				private static final long serialVersionUID = 2239784487050071339L;
+
+				@Override
 	    		public boolean isCellEditable(int row, int column) {
 	    			return false;
 	    		}

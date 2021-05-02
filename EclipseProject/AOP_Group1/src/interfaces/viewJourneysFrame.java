@@ -11,13 +11,12 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-import mainFeatures.Client;
 import mainFeatures.Container;
 import mainFeatures.Journey;
 
 public class viewJourneysFrame extends JFrame {
-	
-	
+
+	private static final long serialVersionUID = -4338084907384207123L;
 	static Object[] loadedData;
 	static List<Object> tempStorage = new ArrayList<Object>();
 	
@@ -47,7 +46,6 @@ public class viewJourneysFrame extends JFrame {
 	
 	
 	public viewJourneysFrame(Container container) {
-		//List<Journey> jl = container.getJourneys();
 		setTitle("Container's journeys");
 		wipeData();
 		loadData(container);
@@ -66,7 +64,9 @@ public class viewJourneysFrame extends JFrame {
         	}
         	DefaultTableModel tableModel = new DefaultTableModel(tableData,columns) {
         		
-        		@Override
+				private static final long serialVersionUID = -7277101885619369315L;
+
+				@Override
         		public boolean isCellEditable(int row, int column) {
         			return false;
         		}
@@ -81,19 +81,11 @@ public class viewJourneysFrame extends JFrame {
         		@Override
         		public void valueChanged(ListSelectionEvent arg0) {
         			if (!arg0.getValueIsAdjusting()) {
-                       System.out.println("viewJourneyFrame " + "TEST!");
                        int row = table.getSelectedRow();
                        Journey journey = (Journey) (table.getValueAt(row, 0)); 
-                       // set selected cell as de-selected so it can be clicked again
                        viewMeasureFrame.showMeasures(journey);
                        
                       }
-        			
-        			System.out.println("test");
-        			// call frame with new table:
-        			//
-        			
-        			
         		}
         		}
         	);
@@ -106,19 +98,11 @@ public class viewJourneysFrame extends JFrame {
 		}
 		setLocationRelativeTo(null);
 		pack();
-		
-		
-		
-		
-		
-		
+	
 		
 	}
 	
-	
-	
-	
-	
+
 	public static void showJourneys(Container container) {
 		
 		viewJourneysFrame window = new viewJourneysFrame(container);

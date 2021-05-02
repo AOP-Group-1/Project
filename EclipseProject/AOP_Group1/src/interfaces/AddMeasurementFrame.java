@@ -20,7 +20,7 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
-import dataLoaders.JourneyUpdater;
+
 import grid.Grid;
 import mainFeatures.Client;
 import mainFeatures.Container;
@@ -30,6 +30,9 @@ import mainFeatures.MeasureLog;
 
 
 public class AddMeasurementFrame extends JFrame {
+
+	private static final long serialVersionUID = 3708857550683105263L;
+
 
 
 static List<Journey> tempStorage = new ArrayList<Journey>();
@@ -45,8 +48,6 @@ public static Object[] loadClients() {
 	tempStorage = new ArrayList<Journey>();
 	Object[] loadedData = null;
 	
-	//search for containers instead, and load the journeys through that
-	// like in ClientController
 	
 	ResultSet rs = Journey.searchForJourney(null,null,null,null,null,null,null,null,null,"false");
 	
@@ -70,7 +71,6 @@ public static Object[] loadClients() {
 			Container placeHolderContainer = new Container(placeHolderClient,containerID);
 			
 			
-			// replace the new journey's ID with journeyID
 			// load completion
 			Journey j = new Journey(placeHolderContainer,journeyOrigin, 
 					journeyDestination, journeyContentType, journeyName);
@@ -79,7 +79,6 @@ public static Object[] loadClients() {
 			tempStorage.add(j);
 		}
 	} catch (SQLException e) {
-		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
 	
@@ -113,7 +112,9 @@ public static Object[] loadClients() {
 		}
 		
 		DefaultTableModel tableModel = new DefaultTableModel(tableData,columns) {
-			
+
+			private static final long serialVersionUID = -3357971627855168441L;
+
 			@Override
 			public boolean isCellEditable(int row, int column) {
 				return false;
@@ -130,7 +131,7 @@ public static Object[] loadClients() {
 		
 		JScrollPane js = new JScrollPane(table);
 		
-		//https://stackoverflow.com/questions/11093326/restricting-jtextfield-input-to-integers
+		// credits to: https://stackoverflow.com/questions/11093326/restricting-jtextfield-input-to-integers
 		
 
 		List<JTextField> textFields = new ArrayList<JTextField>();
@@ -145,16 +146,13 @@ public static Object[] loadClients() {
 		JLabel hmdLabel = new JLabel("Humidity: ");
 		JLabel prsLabel = new JLabel("Pressure: ");
 		
-		//
+
 		
 		JButton btnConfirm = new JButton("Add Measurements");
-		//btnLogout.setBounds(670, 540, 120, 30);
 		btnConfirm.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//Get integer in the nContainerField (remove "-") 
-				//for all selected clients:
-				//add a container with their ID to the database.
+		
 				
 				boolean allFilled = true;
 				for (int i = 0 ; i < textFields.size() ; i++) {
@@ -163,7 +161,7 @@ public static Object[] loadClients() {
 					allFilled = allFilled && !txt.getText().isBlank();
 				}
 				
-				int row = table.getSelectedRow();
+				
 				if (table.getRowCount() > 0) {
 			        if (table.getSelectedRowCount() == 1) {
 			        	int selectedRow = table.getSelectedRow();
@@ -175,13 +173,12 @@ public static Object[] loadClients() {
 						String journeyDestination =  table.getValueAt(selectedRow,4).toString();
 						String journeyContentType =  table.getValueAt(selectedRow,5).toString();
 						String journeyName =  table.getValueAt(selectedRow,6).toString();
-						String journeyComplete =  table.getValueAt(selectedRow,7).toString();
 			        	
 						
 						
 			        	
 						if (!allFilled) { //check if any text fields are blank
-							//Popup warning here
+							
 							JOptionPane.showMessageDialog(panel, "Please fill out all the fields", "Error", JOptionPane.ERROR_MESSAGE);
 
 						}
@@ -190,16 +187,9 @@ public static Object[] loadClients() {
 								int dataHumidity = Integer.parseInt(humidity.getText());
 								int dataPressure = Integer.parseInt(pressure.getText());
 
-						//update database such that selected journey's destination is changed to currentLocation
-						// then create a new journey with old destination as destination, and updatedLocation as origin
+					
 						
-						
-					//https://stackoverflow.com/a/27287881 
-					 	
-	
-					        	
-							//journe.UpdateJourneyLocation(JourneyID,String updatedLocation); // will update database
-					        	
+					           // credits to: https://stackoverflow.com/a/27287881
 					        	Client placeHolderClient = new Client(); 
 								placeHolderClient.replaceID(ownerID);
 								Container placeHolderContainer = new Container(placeHolderClient,containerID);
@@ -216,14 +206,12 @@ public static Object[] loadClients() {
 					            }
 					        }
 					    }
-				//Journey journey = (Journey) (table.getValueAt(row, 0)); 
 				}
 				
 			});
 		
 		
 		
-		//JPanel panel = new JPanel(new GridBagLayout());
 		add(panel, BorderLayout.SOUTH);
 		panel.add(btnConfirm,Grid.constraint(1, 6,5));
 		

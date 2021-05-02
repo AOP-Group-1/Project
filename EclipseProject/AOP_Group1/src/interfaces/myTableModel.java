@@ -1,23 +1,15 @@
 package interfaces;
 
-import java.awt.Component;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JScrollPane;
+
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
-import javax.swing.SingleSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.event.TableModelEvent;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-
 import mainFeatures.Client;
 import mainFeatures.Container;
 
@@ -52,11 +44,7 @@ public class myTableModel {
             "Containers | OwnerID"
         };
          
-	//new section
-	
-	
-	//
-	
+
         
     public static JTable Table(){
     	if (loadedData != null) {
@@ -68,8 +56,10 @@ public class myTableModel {
         	JTable tblInventory = new JTable(tableData,columns);
         	tblInventory.setRowSelectionAllowed(true);
         	DefaultTableModel tableModel = new DefaultTableModel(tableData,columns) {
-        		
-        	 	@Override
+   
+				private static final long serialVersionUID = 5471130245209346703L;
+
+				@Override
         	    public boolean isCellEditable(int row, int column) {
         	      return false;
         	    }
@@ -84,19 +74,12 @@ public class myTableModel {
         		@Override
         		public void valueChanged(ListSelectionEvent arg0) {
         			if (!arg0.getValueIsAdjusting()) {
-                       System.out.println("TEST!");
                        int row = tblInventory.getSelectedRow();
                        Container container = (Container) (tblInventory.getValueAt(row, 0)); 
-                       // set selected cell as de-selected so it can be clicked again
                        viewJourneysFrame.showJourneys(container);
                        
                       }
-        			
-        			System.out.println("test");
-        			// call frame with new table:
-        			//
-        			
-        			
+	
         		}
         		}
         	);

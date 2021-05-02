@@ -18,7 +18,6 @@ public class JourneyUpdater {
 	
 	public static void UpdateLocationJourney(String journeyID, String UpdatedLocation) {
 		DBConnection db = new DBConnection();
-		//("UPDATE client SET " + category + " = \"" + newInfo +"\" WHERE Clientid = \"" + ID + "\"");
 		String sql = ("UPDATE journey SET Destination = " + "\"" + UpdatedLocation + "\" WHERE journeyid = \" " + journeyID + "\";");
 		UpdateCompletionJourney(journeyID);
 		

@@ -7,17 +7,14 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableModel;
 
-import mainFeatures.Container;
+import javax.swing.table.DefaultTableModel;
 import mainFeatures.Journey;
 import mainFeatures.MeasureLog;
 
 public class viewMeasureFrame extends JFrame {
 
-	
+	private static final long serialVersionUID = 4708633126856793271L;
 	static Object[] loadedData = new Object[]{};
 	static List<MeasureLog> tempStorage = new ArrayList<MeasureLog>();
 	
@@ -33,7 +30,6 @@ public class viewMeasureFrame extends JFrame {
 			for (MeasureLog ml : journey.getMeasure()) {
 				if (ml != null) {
 					tempStorage.add(ml);
-					System.out.println("measureframe: measure added");
 				}
 			}
 		} 	
@@ -68,8 +64,10 @@ public class viewMeasureFrame extends JFrame {
         	    
         	}
         	DefaultTableModel tableModel = new DefaultTableModel(tableData,columns) {
-        		
-        		@Override
+
+				private static final long serialVersionUID = -4962169973390096627L;
+
+				@Override
         		public boolean isCellEditable(int row, int column) {
         			return false;
         		}
@@ -79,27 +77,6 @@ public class viewMeasureFrame extends JFrame {
     		table.setModel(tableModel);
 
         	table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        	
-//        	table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-//        		@Override
-//        		public void valueChanged(ListSelectionEvent arg0) {
-//        			if (!arg0.getValueIsAdjusting()) {
-//                       System.out.println("TEST!");
-//                       int row = table.getSelectedRow();
-//                       Journey journey = (Journey) (table.getValueAt(row, 0)); 
-//                       // set selected cell as de-selected so it can be clicked again
-//                       viewMeasureFrame.showMeasures(journey);
-//                       
-//                      }
-//        			
-//        			System.out.println("test");
-//        			// call frame with new table:
-//        			//
-//        			
-//        			
-//        		}
-//        		}
-//        	);
         	
         	
         	JScrollPane js = new JScrollPane(table);
@@ -116,9 +93,6 @@ public class viewMeasureFrame extends JFrame {
 	}
 
 	public static void showMeasures(Journey journey) {
-		// TODO Auto-generated method stub
-		
-
 		viewMeasureFrame window = new viewMeasureFrame(journey);
 		window.setVisible(true);
 		

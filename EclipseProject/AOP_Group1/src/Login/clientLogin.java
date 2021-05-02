@@ -46,12 +46,8 @@ public class clientLogin extends JFrame {
 					@SuppressWarnings("deprecation")
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						
-						//use the input clientName to find client's password in the database
-						//
 						String userName = txtLogin.getText();
 						String userPassword = ClientLoginController.loadPassword(userName);
-						System.out.println();
 						if((userPassword != "ERROR USER NOT FOUND") && (userPassword.equals(txtPass.getText())) && !txtLogin.getText().isEmpty()) {
 							clientInterface.clientInterface();
 							dispose();

@@ -1,17 +1,17 @@
 package interfaces;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
+
 import java.awt.Dimension;
-import java.awt.GridBagLayout;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Collections;
+
 import java.util.List;
 
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -24,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import controller.AvailableContainerController;
-import mainFeatures.Client;
+
 import mainFeatures.Container;
 
 public class AvailableContainerFrame extends JFrame {
@@ -32,19 +32,16 @@ public class AvailableContainerFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
 	
-	//https://stackoverflow.com/questions/4765469/how-to-retrieve-jtable-data-as-an-array
+	// credits to: https://stackoverflow.com/questions/4765469/how-to-retrieve-jtable-data-as-an-array
 
 	public static Object[][] getTableData (JTable table) {
-//		if (table.isEditing()) {
-//			table.getCellEditor().stopCellEditing();
-//		}
+
 	    TableModel dtm = table.getModel();
 	    int nRow = dtm.getRowCount(), nCol = dtm.getColumnCount();
 	    Object[][] tableData = new Object[nRow][nCol];
 	    for (int i = 0 ; i < nRow ; i++)
 	        for (int j = 0 ; j < nCol ; j++) {
 	            tableData[i][j] = table.getValueAt(i,j);
-	    		System.out.println("cell loaded: " + table.getValueAt(i, j));
 	        }
 	    return tableData;
 	}
@@ -61,30 +58,21 @@ public class AvailableContainerFrame extends JFrame {
 		setTitle("showing available containers");
 
 		//buttons
-
-		
-		JTable table = AvaibleContainersTableModel.Table();
-		
-//		AvaibleContainersTableModel.wipeData(); 
-//		AvaibleContainersTableModel.loadData();
 		JButton btnConfirm = new JButton("Confirm");
 		btnConfirm.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//check if there is any container selected from the table
+				
 				setAlwaysOnTop(false);
 					
-//				Object[][] tableData = getTableData(table);
+
 				Object[][] tableData = getTableData(AvaibleContainersTableModel.tblInventory); //WORKS
 				boolean noMarks = false;
-				//check if this works
+
 				
 				for (Object[] row : tableData) {
-					//doesn't accurately check the checkbox BUG
-					System.out.println("availablecontainer marks: " + row[1]);
 					noMarks = noMarks || ((boolean) row[1]) ;
-//					System.out.println(row[0]);
-//					System.out.println(row[1]);
+
 				}
 				if (!noMarks) {
 					JPanel panel = new JPanel();
@@ -112,22 +100,12 @@ public class AvailableContainerFrame extends JFrame {
 	}
 	
 
-	// "Available containers" is not properly updated / loaded after sending containers on journeys. 
 	static AvailableContainerFrame window;
 	public static void showAvailableContainers() {
 		
 		window = new AvailableContainerFrame();
 		window.setVisible(true);
-		
-//	if (window == null)	{	
-//		AvaibleContainersTableModel.wipeData();
-//		window = new AvailableContainerFrame();
-//		window.setVisible(true);
-//	}
-//		window.revalidate();
-//		window.repaint();
-//		window.setVisible(true);
-	
+
 	}
 	
 	
@@ -137,13 +115,7 @@ public class AvailableContainerFrame extends JFrame {
 
 
 class AvaibleContainersTableModel extends DefaultTableModel {
-	
-	
-	
-	
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = -2598668107806950822L;
 	
 	
@@ -153,9 +125,7 @@ class AvaibleContainersTableModel extends DefaultTableModel {
 	
 	public static void loadData() {
 		tempStorage = AvailableContainerController.availableContainers();
-//		if (tempStorage != null)
 		loadedData = tempStorage.toArray();
-//		System.out.println("no containers");
 	}
 	
 	public static void wipeData() {
@@ -169,24 +139,13 @@ class AvaibleContainersTableModel extends DefaultTableModel {
         };
       
 	
-// 	@Override
-//    public boolean isCellEditable(int row, int column) {
-//      return column == 1;
-//    }
-//	
-// 	public AvaibleContainersTableModel() {
-// 	      super(columns, 0);
-// 	    }
+
 	    
  	
  	static JTable tblInventory;
  	
-    public static JTable Table(){ //was a component before
-    	//singleton pattern
-//    	wipeData();
-//    	loadData();
-    		
-//	    	if (loadedData != null) {
+    public static JTable Table(){ 
+
 	        	Object[][] tableData = new Object[loadedData.length][2];
 	        	for ( int i = 0; i < loadedData.length; i++ ){
 	        	    tableData[i][0] = loadedData[i];
@@ -194,12 +153,12 @@ class AvaibleContainersTableModel extends DefaultTableModel {
 	        	}
 	        	tblInventory = new JTable(tableData,columns);
 	        	tblInventory.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-	        	//AvaibleContainersTableModel tableModel = new AvaibleContainersTableModel();
 	        	DefaultTableModel tableModel = new DefaultTableModel(tableData,columns) {
-	        		
-	        		@Override
+
+					private static final long serialVersionUID = 3813774263900377905L;
+
+					@Override
 	        	    public boolean isCellEditable(int row, int column) {
-	        	       //all cells false
 	        	       return column == 1;
 	        	    }
 	        		
@@ -218,23 +177,15 @@ class AvaibleContainersTableModel extends DefaultTableModel {
 	        	
 	        	tableModel.addTableModelListener(new TableModelListener() {
 	        		public void tableChanged(TableModelEvent e) {
-	            		int row = e.getFirstRow();
-	            		int column = e.getColumn();
-	            		System.out.println("(availablecontainers) Clicked");
-	//            		System.out.println(tableData[row][1]);	            		
-	            		System.out.println(tblInventory.getValueAt(row, column));
+	            	
+	            	
+            		
+	            
 
-//	            		tableModel.setValueAt(! (boolean) tableModel.getValueAt(row, column), row, column);
-//	            		tableData[row][1] = (! (boolean) tableData[row][1]);
-//	            		tblInventory.setValueAt(e, row, column);
+
 	            	}
 	        		
 	        	});
-	//        	public void tableChanged(TableModelEvent e) {
-	//        		int row = e.getFirstRow();
-	//        		System.out.println("Clicked");
-	//        		tableData[row][1] = (! (boolean) tableData[row][1]);
-	//        	}
 	
 	        	tblInventory.setModel(tableModel);
 	        	tblInventory.setVisible(true);
@@ -243,6 +194,6 @@ class AvaibleContainersTableModel extends DefaultTableModel {
 	        	return tblInventory;
 	    	
 	    	}
-//	    	return new JTable(); }
+
     	
  }

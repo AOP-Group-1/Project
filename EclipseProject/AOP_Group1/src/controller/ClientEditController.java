@@ -4,10 +4,8 @@ import mainFeatures.Client;
 
 public class ClientEditController {
 
-	//static private Client currentClient;
 	
 	static public void editClientInfo(Client client,String newInfo, String category) {
-		System.out.println("send edit notif");
 		if (category == null)
 				return;
 		else if (category.equalsIgnoreCase("Name")) {

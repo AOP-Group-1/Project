@@ -18,6 +18,7 @@ import mainFeatures.Client;
 
 public class searchBoxFrame extends JFrame {
 
+	private static final long serialVersionUID = -5419998339255606444L;
 	private static JTextField Id;
 	private static JTextField Name;
 	private static JTextField Email;
@@ -49,7 +50,6 @@ public class searchBoxFrame extends JFrame {
 			add(Email,Grid.constraint(1, 2, 5));
 			
 			JButton btnSearch = new JButton("Search");
-			//btnLogout.setBounds(670, 540, 120, 30);
 			btnSearch.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {

@@ -19,7 +19,7 @@ public class DBConnection {
 		try {
 			this.conn=DriverManager.getConnection(address,username, password);
 		}catch(Exception ex) {
-			System.out.println("Exception");
+			
 		}
 		
 	}
@@ -36,7 +36,6 @@ public class DBConnection {
 		try {
 			this.conn.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -50,7 +49,6 @@ public class DBConnection {
 			s = this.conn.createStatement();
 			return s.executeQuery(sql);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -65,7 +63,6 @@ public class DBConnection {
 			s = this.conn.createStatement();
 			s.executeUpdate(sql);
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

@@ -6,13 +6,13 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.PlainDocument;
 
-import interfaces.NumberField.Numberdocument;
 
-//class for having a textfield only for numbers
-//https://stackoverflow.com/a/20979484
+//class for having a textfield only with numbers
+// credit to: https://stackoverflow.com/a/20979484
 public class NumberField extends JTextField {
 
-	
+	private static final long serialVersionUID = 7966779295557610144L;
+
 	public NumberField(int i) {
 		super(i);
 	}
@@ -23,7 +23,9 @@ protected Document createDefaultModel() {
 }
 
 class Numberdocument extends PlainDocument {
- String numbers="1234567890-";
+
+	private static final long serialVersionUID = -3739705134251280898L;
+String numbers="1234567890-";
  @Override
  public void insertString(int offs, String str, AttributeSet a)
          throws BadLocationException {

@@ -6,6 +6,7 @@ import java.util.List;
 import mainFeatures.Client;
 import mainFeatures.Container;
 
+// Controller for finding Available controller
 public class AvailableContainerController {
 
 	public static List<Container> availableContainers() {
@@ -13,12 +14,10 @@ public class AvailableContainerController {
 		Client client = ClientController.getClient();
 		System.out.println(client.getName());
 		List<Container> containerList = new ArrayList<Container>();
-		//Container[] availableContainers;
 		
 		for (Container container : client.getContainers()) {
 			if ((container != null) && container.notOnJourney()) {
 				containerList.add(container);
-				System.out.println("availablecontainercontroller: " + container.notOnJourney()); 
 				}
 			
 		}
@@ -27,7 +26,6 @@ public class AvailableContainerController {
 		
 		
 	}
-	//make a pop-up window with table of all available containers 
 	
 	
 }

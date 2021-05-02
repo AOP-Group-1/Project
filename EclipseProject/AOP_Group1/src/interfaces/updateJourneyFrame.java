@@ -24,7 +24,11 @@ import mainFeatures.Container;
 import mainFeatures.Journey;
 
 public class updateJourneyFrame extends JFrame {
-	
+
+	private static final long serialVersionUID = -6515202010434778044L;
+
+
+
 	static List<Journey> tempStorage = new ArrayList<Journey>();
 	
 
@@ -38,8 +42,8 @@ public class updateJourneyFrame extends JFrame {
 		tempStorage = new ArrayList<Journey>();
 		Object[] loadedData = null;
 		
-		//search for containers instead, and load the journeys through that
-		// like in ClientController
+
+		
 		
 		ResultSet rs = Journey.searchForJourney(null,null,null,null,null,null,null,null,null,"false");
 		
@@ -61,8 +65,7 @@ public class updateJourneyFrame extends JFrame {
 				Client placeHolderClient = new Client(); 
 				placeHolderClient.replaceID(ownerID);
 				Container placeHolderContainer = new Container(placeHolderClient,containerID);
-				
-				
+
 				// replace the new journey's ID with journeyID
 				// load completion
 				Journey j = new Journey(placeHolderContainer,journeyOrigin, 
@@ -72,7 +75,7 @@ public class updateJourneyFrame extends JFrame {
 				tempStorage.add(j);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		
@@ -104,8 +107,10 @@ public class updateJourneyFrame extends JFrame {
     	}
     	
     	DefaultTableModel tableModel = new DefaultTableModel(tableData,columns) {
-    		
-    		@Override
+
+			private static final long serialVersionUID = 6490031463771908938L;
+
+			@Override
     		public boolean isCellEditable(int row, int column) {
     			return false;
     		}
@@ -121,22 +126,19 @@ public class updateJourneyFrame extends JFrame {
     	
 		JScrollPane js = new JScrollPane(table);
 		
-		//https://stackoverflow.com/questions/11093326/restricting-jtextfield-input-to-integers
+		//credits to: https://stackoverflow.com/questions/11093326/restricting-jtextfield-input-to-integers
 		
 
 		JTextField updatedLocationField = new JTextField(10);		
 		
-		//
 		
 		JButton btnConfirm = new JButton("Update Journeys");
-		//btnLogout.setBounds(670, 540, 120, 30);
+
 		btnConfirm.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//Get integer in the nContainerField (remove "-") 
-				//for all selected clients:
+
 				//add a container with their ID to the database.
-				int row = table.getSelectedRow();
 				if (table.getRowCount() > 0) {
 			        if (table.getSelectedRowCount() == 1) {
 			        	int selectedRow = table.getSelectedRow();
@@ -144,11 +146,9 @@ public class updateJourneyFrame extends JFrame {
 			        	String journeyID = table.getValueAt(selectedRow,0).toString();
 			        	String containerID =  table.getValueAt(selectedRow,1).toString();
 						String ownerID =  table.getValueAt(selectedRow,2).toString();
-						String journeyOrigin =  table.getValueAt(selectedRow,3).toString();
 						String journeyDestination =  table.getValueAt(selectedRow,4).toString();
 						String journeyContentType =  table.getValueAt(selectedRow,5).toString();
 						String journeyName =  table.getValueAt(selectedRow,6).toString();
-						String journeyComplete =  table.getValueAt(selectedRow,7).toString();
 			        	
 						
 						
@@ -158,16 +158,9 @@ public class updateJourneyFrame extends JFrame {
 						}
 						else {
 								String updatedLocation = updatedLocationField.getText();
-						//update database such that selected journey's destination is changed to currentLocation
-						// then create a new journey with old destination as destination, and updatedLocation as origin
-						
-						
-					//https://stackoverflow.com/a/27287881 
+
+					        //credits to: https://stackoverflow.com/a/27287881 
 					 	
-	
-					        	
-							//journe.UpdateJourneyLocation(JourneyID,String updatedLocation); // will update database
-					        	
 					        	Client placeHolderClient = new Client(); 
 								placeHolderClient.replaceID(ownerID);
 								Container placeHolderContainer = new Container(placeHolderClient,containerID);
@@ -184,7 +177,6 @@ public class updateJourneyFrame extends JFrame {
 					            }
 					        }
 					    }
-				//Journey journey = (Journey) (table.getValueAt(row, 0)); 
 				}
 				
 			});

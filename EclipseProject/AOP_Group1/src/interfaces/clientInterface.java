@@ -4,10 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
-import javax.swing.Box;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -16,16 +14,14 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JToolBar;
-import javax.swing.ListSelectionModel;
+
 import javax.swing.SwingConstants;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableModel;
+
 import javax.swing.table.TableModel;
 import Login.clientLogin;
 import controller.ClientController;
 import mainFeatures.Client;
-import mainFeatures.Container;
+
 
 
 public class clientInterface extends JFrame{
@@ -41,9 +37,7 @@ public class clientInterface extends JFrame{
 	
 	
 	public clientInterface() {
-				
-		
-				
+								
 				//loads all the client info by using the client log-in name
 				ClientController.clientLoader();
 				currentClient = ClientController.getClient();
@@ -52,13 +46,7 @@ public class clientInterface extends JFrame{
 				setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				setTitle("Client Interface");
 				setPreferredSize(new Dimension(800, 600));
-				
-				
-				
-				// loads the containers
-				
-				// wipe away the memory of previous logged in user
-				// here or at logout button
+		
 				
 				
 				// buttons
@@ -67,12 +55,11 @@ public class clientInterface extends JFrame{
 					@Override
 					public void actionPerformed(ActionEvent e) {
 						
-						ClientController.clientLoader(); //attempt
+						ClientController.clientLoader(); 
 						myTableModel.wipeData();
 						myTableModel.loadData(currentClient);
 						
 						
-						//Reload this data after having added a journey
 						
 						JTable table = myTableModel.Table();
 						
@@ -80,19 +67,15 @@ public class clientInterface extends JFrame{
 						add(jsPane, BorderLayout.CENTER);
 						table.setFillsViewportHeight(true);
 												
-						//add(newTable,BorderLayout.CENTER);
-						
-//						repaint();
-//						revalidate();
+
 						pack();
 						setVisible(true);
-						//
+
 					}
 				});
 				
 				
 
-				//Should not be able to open multiple "add journey" windows at once
 				
 				JButton btnAddJourney = new JButton("Add Journey");
 				btnAddJourney.addActionListener(new ActionListener() {
@@ -104,10 +87,7 @@ public class clientInterface extends JFrame{
 						AvailableContainerFrame.showAvailableContainers();
 						setVisible(true);
 						
-						
-//						//addJourneyFrame.openAddJourneyWindow();
-						//setVisible(true);
-						//Add checks to see if origin and destination are actual countries
+
 					}
 				});
 				
@@ -117,16 +97,14 @@ public class clientInterface extends JFrame{
 					public void actionPerformed(ActionEvent e) {
 						editUserInfoFrame.showEditUserFrame();
 						setVisible(true);
-						// pop-up window with 5 buttons to edit basic user info
-						// Name, Password, Email, Address, Reference Person
-						// click a button, text field appears
+
 						
 					}
 				});
 				
 				
 				JButton btnLogout = new JButton("Logout");
-				//btnLogout.setBounds(670, 540, 120, 30);
+
 				btnLogout.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
@@ -138,7 +116,7 @@ public class clientInterface extends JFrame{
 							dispose();
 						}
 						else if (confirmed == JOptionPane.NO_OPTION){
-							//remove(confirmed);
+
 						}
 					   
 						
@@ -147,18 +125,17 @@ public class clientInterface extends JFrame{
 				
 		      
 				
-				// toolbar
+	
 				lblSession = new JLabel();
 				lblSession.setHorizontalAlignment(SwingConstants.RIGHT);
 				
 				
-				// find some way to update this when confirm button is clicked.
 				lblSession.setText("<html>" + currentClient.getName() + "<i>(" +" Client" + ")</i></html>");
+				//toolbar
 				JToolBar toolbar = new JToolBar();
 				toolbar.add(btnContainers, BorderLayout.CENTER);
 				toolbar.add(btnAddJourney);
 				toolbar.add(btnAEditInfo);
-				//toolbar.add(Box.createHorizontalGlue());
 				toolbar.add(lblSession);
 				add(toolbar, BorderLayout.NORTH);
 				
@@ -167,22 +144,7 @@ public class clientInterface extends JFrame{
 				add(bottomPanel, BorderLayout.SOUTH);
 			    bottomPanel.add(btnLogout, BorderLayout.EAST);
 				
-
-				
-				
-//				// table
-//				tblInventory = new JTable();
-//				tblInventory.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-//				tblInventory.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-//					@Override
-//					public void valueChanged(ListSelectionEvent e) {
-//						
-//						
-//					}
-//				
-//				});
-//				add(new JScrollPane(tblInventory), BorderLayout.CENTER);
-//				
+			
 				pack();
 				setLocationRelativeTo(null);
 			}

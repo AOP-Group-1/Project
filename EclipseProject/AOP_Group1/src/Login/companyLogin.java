@@ -39,7 +39,7 @@ public class companyLogin extends JFrame {
 				panel.setLayout(null);
 				
 				String password="123";
-			    
+			    String Company_Name="Maersk";
 				
 				txtLogin = new JTextField(15);
 				txtPass = new JPasswordField(15);
@@ -48,7 +48,7 @@ public class companyLogin extends JFrame {
 					@SuppressWarnings("deprecation")
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						if(txtPass.getText().equals(password) && !txtLogin.getText().isEmpty()) {
+						if(txtPass.getText().equals(password) && txtLogin.getText().equals(Company_Name)) {
 							companyInterface.companyInterface();
 							dispose();
 						}

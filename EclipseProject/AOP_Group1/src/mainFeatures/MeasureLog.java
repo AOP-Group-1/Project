@@ -21,7 +21,6 @@ public class MeasureLog {
 		this.time = dtf.format(now);	
 	}
 	
-	// please maybe test this as well, 
 	public void registerMeasureLog (Journey journey) { //construct a MeasureLog object from an int[] in the facade
 		
 		String sql = String.format("insert into container_status (journeyid, Internal_temperature, Humidity, Atmospheric_pressure, Time) values(\"%s\",%d,%d,%d,\"%s\");", 
@@ -33,7 +32,7 @@ public class MeasureLog {
 	
 	
 	
-	public int getMeasure(String category) { //similar to Factory pattern
+	public int getMeasure(String category) { 
 		if (category == null) {
 			return 0;
 		}
@@ -52,19 +51,12 @@ public class MeasureLog {
 		return time;
 	}
 	
-	// Needs to be tested Oscar :D
 	public void replaceTime (String newTime) { //solely used when loading the measureLog from database
 		this.time = newTime;
 	}
 	
 	
 	public static void main(String[] args) {
-//		int[] test1 = {1,2,4};
-//		
-//		
-//		MeasureLog ML = new MeasureLog(test1);
-//		
-//		System.out.println(ML.getMeasure("Time"));
-//		System.out.println(ML.getTime());
+
 	}
 }
