@@ -1,4 +1,4 @@
-
+package mainFeatures;
 import java.sql.ResultSet;
 import java.util.*;
 
@@ -11,7 +11,7 @@ public class Client {
 	String address;
 	String refPer;
 	String password;
-	List<Container> containers;
+	List<Container> containers = new ArrayList<Container>();
 	
 	
 	// change to database stuff
@@ -19,32 +19,8 @@ public class Client {
 	public Map<Integer, ArrayList<String>> dict = new HashMap<Integer, ArrayList<String>>();
 		
 	// constructor for making client id and setting new client details
-	public Client() {
-		
-		
-//		Random rand = new Random();
-//		int upperbound = 10000000;
-//		ID = rand.nextInt(upperbound);
-//		
-//		while (dict.containsKey(ID));
-//			ID = rand.nextInt(upperbound);
-//		
-//		dict.put(ID, new ArrayList<String>());	
-//		
-//		
-//		for(int i = 0; i < 4; i++)
-//			dict.get(ID).add("");			
-//			
-//		this.setName();
-//		this.setEmail();
-//		this.setAddress();
-//		this.setRefPer();		
+	public Client() {		
 		this.ID = UUID.randomUUID().toString();
-		this.name = name;
-		this.email = email;
-		this.address = address;
-		this.refPer = refPer;
-		
 	}
 	
 	// setting details (name, email, address and reference person) and saving in map
@@ -53,8 +29,21 @@ public class Client {
 //	public void setRefPer(String refPer) {
 //		databasename.put(refPer)
 	
+	List<Integer> test;
+	
+	
 	public void addContainer(Container newContainer) {
 		containers.add(newContainer);
+	}
+	
+	//should be tested :)
+	public Container[] getContainers() {
+		Container[] res = {null};
+		if (containers == null) {
+			return res;
+		}
+		
+		return (Container[]) containers.toArray(res);
 	}
 	
 	public void setName(String name) {
@@ -71,12 +60,27 @@ public class Client {
 		this.email = email;
 	}
 	
+	public String getEmail() {
+		return email;
+	}
+	
 	public void setAddress(String address ) {
 		this.address = address;
 	}
+	
+	public String getAddress() {
+		return address;
+	}
+	
 	public void setRefPer(String refPer) {
 		this.refPer = refPer;
 	}
+	
+	public String getRefPer() {
+		return refPer;
+	}
+	
+	
 	public void replaceID(String ID) {
 		this.ID = ID;
 	}
@@ -85,16 +89,28 @@ public class Client {
 		return ID;
 	}
 	
+	//methods for editing one part of a user's information in the dataBase
+	public void editInfo(String newInfo, String category) {
+		DBConnection db = new DBConnection();
+		// UPDATE `table_name` SET `column_name` = `new_value' [WHERE condition];
+		String sql = ("UPDATE client SET " + category + " = \"" + newInfo +"\" WHERE Clientid = \"" + ID + "\"");
+		db.update(sql); //update the database
+	}
+
+	
+	
+	
+	
 //	public void search() {
 //		// should be changed according to databasing so one can search for id in database or name
 //		Arrays.toString(dict.entrySet().toArray());
 //	}
 	public void registerClient() {
 		String sql = String.format(
-				"insert into client(Clientid,Name,"
+				"insert into client(Clientid,Password,Name,"
 						+ "Email,Address,Reference_Person) "
-						+ "values(\"%s\",\"%s\",\"%s\",\"%s\",\"%s\");",
-				this.ID, this.name, this.email, this.address, this.refPer);
+						+ "values(\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",\"%s\");",
+				this.ID,this.password, this.name, this.email, this.address, this.refPer);
 		DBConnection db = new DBConnection();
 		db.update(sql);
 	}
@@ -104,33 +120,42 @@ public class Client {
 		
 		StringBuilder condition = new StringBuilder();
 		if (id != null)
-			condition.append(String.format("M1.ID = \"%s\" and", id));
+			condition.append(String.format("Clientid = \"%s\" and ", id));
 		if (name != null)
-			condition.append(String.format("M1.name = \"%s\" and", name));
+			condition.append(String.format("name = \"%s\" and ", name));
 		if (email != null)
-			condition.append(String.format("M1.email = \"%s\" and ", email));
+			condition.append(String.format("email = \"%s\" and ", email));
 		if (address != null)
-			condition.append(String.format("M1.address = \"%s\" and ", address));
+			condition.append(String.format("address = \"%s\" and ", address));
 		if (refPer != null)
-			condition.append(String.format("M1.refPer = \"%s\" and ", refPer));
-		if (condition.toString() != null) {
-			condition.delete(condition.lastIndexOf("and"), condition.lastIndexOf("and") + 3);
+			condition.append(String.format("refPer = \"%s\" and ", refPer));
+		if (!condition.isEmpty()) {
+			condition.delete(condition.lastIndexOf("and"), condition.lastIndexOf("and") + 3 );
+			String sql=operation+"* from "+tableName+" where "+condition.toString()+";";
+			return sql;
 		}
-		String sql=operation+"* from "+tableName+" where "+condition.toString()+";";
+		String sql = operation + "* from " + tableName + ";";
 		return sql;
 	}
 	
 	
 	
-	
+	public static ResultSet findAllClients() {
+		DBConnection db = new DBConnection();
+		String sql = "select * from client";
+		ResultSet rs = db.read(sql);
+		return rs;
+		
+		
+	}
 	
 	public static ResultSet searchForClient(String id, String email, String name, String address, String refPer) {
 		DBConnection db = new DBConnection();
 		String sql=prepareStatement("select","client",id,email,name,address,refPer);
-		ResultSet s = db.read(sql);
-		return s;
-
+		ResultSet rs = db.read(sql);
+		return rs;
 	}
+	
 	@Override
 	public boolean equals(Object o) {
 		if(o instanceof Client) {
@@ -147,13 +172,13 @@ public class Client {
 	
 	public static void main(String[] args) {
 		Client client1 = new Client();
-		Container container = new Container();
 		client1.setName("Sony");
+		client1.setPassword("sonyIsBest");
 		client1.setAddress("Japan");
 		client1.setEmail("Sony@Sony.com");
 		client1.setRefPer("Hasuki sushi");
-		client1.addContainer(container);
-		//client1.registerClient();
+		client1.registerClient();
+		//System.out.println(client1.test.isEmpty());
 		
 	}
 	

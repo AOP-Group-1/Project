@@ -17,11 +17,11 @@
 ## (Comments)
 #Sample Feature Definition Template
 @tag
-Feature: Title of your feature
-  I want to use this template for my feature file
+Feature: Managing database connection
 
   @tag1
-  Scenario: Title of your scenario
-    Given an origin, a destination and a content type
-    
+  Scenario: Connecting/unconnecting
+    Given a need for the program
+    Then program is started
+    And later closed
 

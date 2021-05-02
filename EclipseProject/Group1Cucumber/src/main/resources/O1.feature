@@ -17,18 +17,9 @@
 ## (Comments)
 #Sample Feature Definition Template
 @tag
-Feature: Registering a client
+Feature: Checking the history of statuses of a container
 
   @tag1
-  Scenario: Logistic company registering a new client
-    Given a new client
-    Then I want to register contact info
-    And add a password to the profile
-    Then I want to register a container to the profile
-    And save all data
-    
-  Scenario: Checking details of a client
-  	Given a registered client
-  	Then I want to check the client name
-  	And edit the ID
-
+  Scenario: Checking a containers measurement history
+    Given a container_
+    Then the company searches for the measurement history
