@@ -165,7 +165,7 @@ public class Journey {
 	}
 	
 	
-	//Only for testing in main inside Container - delete before hand-in
+
 	public List<MeasureLog> getMeasure() {
 		
 		return cs.measures;
