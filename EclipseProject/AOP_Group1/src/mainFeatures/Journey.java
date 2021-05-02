@@ -49,9 +49,36 @@ public class Journey {
 		return journeyID;
 	}
 	
+	public String getOrigin() {
+		return origin;
+	}
+ 	
+	public String getDestination() {
+		return destination;
+	}
+	
+	public String getContentType() {
+		return contentType;
+	}
+	
+	public String getCompany() {
+		return company;
+	}
+	public String getContainerID() {
+		return containerID;
+	}
+	public String getClientID() {
+		return clientID;
+	}
+	
 	public void setComplete(boolean completion) {
 		this.journeyComplete = completion;
 	}
+	
+	public void replaceID(String loadedID) {
+		this.journeyID = loadedID;
+	}
+	
 
 	public void registerJourney() {
 		String sql = String.format(
@@ -176,6 +203,9 @@ public class Journey {
 
 	public void addMeasureJourney(MeasureLog measures) { //O1
 		cs.addMeasureContainerStatus(measures);
+		
+		
+		
 	}
 	
 	

@@ -85,8 +85,6 @@ public class AvailableContainerFrame extends JFrame {
 //					System.out.println(row[0]);
 //					System.out.println(row[1]);
 				}
-				
-				System.out.println("no marks value: " + noMarks);
 				if (!noMarks) {
 					JPanel panel = new JPanel();
 					JOptionPane.showMessageDialog(panel, "Please mark at least one container for the journey", "Journey error", JOptionPane.ERROR_MESSAGE);

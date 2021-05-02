@@ -77,7 +77,7 @@ public class viewJourneysFrame extends JFrame {
         		@Override
         		public void valueChanged(ListSelectionEvent arg0) {
         			if (!arg0.getValueIsAdjusting()) {
-                       System.out.println("TEST!");
+                       System.out.println("viewJourneyFrame " + "TEST!");
                        int row = table.getSelectedRow();
                        Journey journey = (Journey) (table.getValueAt(row, 0)); 
                        // set selected cell as de-selected so it can be clicked again

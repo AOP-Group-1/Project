@@ -47,11 +47,31 @@ public class companyInterface extends JFrame {
 				}
 			});
 			
+			JButton btnAddContainer = new JButton("Add Container");
+			btnAddContainer.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					
+					// Open frame with table
+					// of all clients (Selectable)
+					// 
+					
+					addContainerFrame.showAddContainerFrame();
+					setVisible(true);
+					
+				}
+			});
 			
-			JButton btnUpdMeasure = new JButton("Update Measurement");
+			
+			JButton btnUpdMeasure = new JButton("Add Measurements");
 			btnUpdMeasure.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
+					
+					AddMeasurementFrame.showAddMeasurementFrame();
+					setVisible(true);
+					//Same idea as Update Journey
+					//Except with three text fields instead of one
 					
 				}
 			});
@@ -62,6 +82,10 @@ public class companyInterface extends JFrame {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					
+					updateJourneyFrame.showUpdateJourneyFrame();
+					setVisible(true);
+					
+					
 				}
 			});
 			
@@ -70,15 +94,19 @@ public class companyInterface extends JFrame {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					
+					searchBoxFrame.showSearchBox();
+					setVisible(true);
+					
+					//Dialogue box frame
+					//click "search " (confirm) button
+					//dispose dialogue box 
+					//then show table with all clients matching search.
+					
+					
 				}
 			});
 			
-			JButton btnAddContainer = new JButton("Add Container");
-			btnSearchClient.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-				}
-			});
+		
 			
 			
 			

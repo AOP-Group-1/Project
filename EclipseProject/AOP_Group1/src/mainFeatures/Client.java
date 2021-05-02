@@ -60,12 +60,27 @@ public class Client {
 		this.email = email;
 	}
 	
+	public String getEmail() {
+		return email;
+	}
+	
 	public void setAddress(String address ) {
 		this.address = address;
 	}
+	
+	public String getAddress() {
+		return address;
+	}
+	
 	public void setRefPer(String refPer) {
 		this.refPer = refPer;
 	}
+	
+	public String getRefPer() {
+		return refPer;
+	}
+	
+	
 	public void replaceID(String ID) {
 		this.ID = ID;
 	}
@@ -105,35 +120,42 @@ public class Client {
 		
 		StringBuilder condition = new StringBuilder();
 		if (id != null)
-			condition.append(String.format("Clientid = \"%s\" and", id));
-//		if (password != null)
-//			condition.append(String.format("Password = \"%s\",and", password));
+			condition.append(String.format("Clientid = \"%s\" and ", id));
 		if (name != null)
-			condition.append(String.format("name = \"%s\" and", name));
+			condition.append(String.format("name = \"%s\" and ", name));
 		if (email != null)
 			condition.append(String.format("email = \"%s\" and ", email));
 		if (address != null)
 			condition.append(String.format("address = \"%s\" and ", address));
 		if (refPer != null)
 			condition.append(String.format("refPer = \"%s\" and ", refPer));
-		if (condition.toString() != null) {
-			condition.delete(condition.lastIndexOf("and"), condition.lastIndexOf("and") + 3);
+		if (!condition.isEmpty()) {
+			condition.delete(condition.lastIndexOf("and"), condition.lastIndexOf("and") + 3 );
+			String sql=operation+"* from "+tableName+" where "+condition.toString()+";";
+			return sql;
 		}
-		String sql=operation+"* from "+tableName+" where "+condition.toString()+";";
+		String sql = operation + "* from " + tableName + ";";
 		return sql;
 	}
 	
 	
 	
-	
+	public static ResultSet findAllClients() {
+		DBConnection db = new DBConnection();
+		String sql = "select * from client";
+		ResultSet rs = db.read(sql);
+		return rs;
+		
+		
+	}
 	
 	public static ResultSet searchForClient(String id, String email, String name, String address, String refPer) {
 		DBConnection db = new DBConnection();
 		String sql=prepareStatement("select","client",id,email,name,address,refPer);
-		ResultSet s = db.read(sql);
-		return s;
-
+		ResultSet rs = db.read(sql);
+		return rs;
 	}
+	
 	@Override
 	public boolean equals(Object o) {
 		if(o instanceof Client) {

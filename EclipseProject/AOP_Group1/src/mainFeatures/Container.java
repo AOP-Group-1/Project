@@ -61,9 +61,9 @@ public class Container {
 	}
 	
 	//empty constructor should probably be removed
-	public Container(String string) {
-		// TODO Auto-generated constructor stub
-	}
+//	public Container(String string) {
+//		// TODO Auto-generated constructor stub
+//	}
 
 	//container's addMeasurements -> Journeys AddMeasurements -> ContainerStatus' addMeasurements
 	
@@ -88,13 +88,15 @@ public class Container {
 		}
 		jl.get(numOfJourneys - 1).addMeasureJourney(measures); //add the measurements to the current journey
 		
-		String sql = String.format("insert into container_status (journeyid, Internal_temperature, Humidity, Atmospheric_pressure, Time) values(\"%s\",%d,%d,%d,\"%s\");", 
-				jl.get(numOfJourneys - 1).getJourneyID(), measures.getMeasure("temperature"), 
-														  measures.getMeasure("humidity"), 
-														  measures.getMeasure("pressure"),
-														  measures.getTime());
-		DBConnection db = new DBConnection(); 
-		db.update(sql); //update database with new measurements
+		
+		//uploading to database was moved to the MeasureLog.registerMeasureLog's responsibility
+//		String sql = String.format("insert into container_status (journeyid, Internal_temperature, Humidity, Atmospheric_pressure, Time) values(\"%s\",%d,%d,%d,\"%s\");", 
+//				jl.get(numOfJourneys - 1).getJourneyID(), measures.getMeasure("temperature"), 
+//														  measures.getMeasure("humidity"), 
+//														  measures.getMeasure("pressure"),
+//														  measures.getTime());
+//		DBConnection db = new DBConnection(); 
+//		db.update(sql); //update database with new measurements
 	}
 	
 	@Override
@@ -115,33 +117,33 @@ public class Container {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		Container c = new Container("123");
-		//Journey j = new Journey("Copenhagen","London","Bananas","DSV");
-		Client client = new Client();
-		//Container c = new Container(client);
-		//Journey j = new Journey(c.getContainerID(),"customerIDplaceholder","Copenhagen","London","Bananas","DSV");
-		//c.addJourney(j);
-		int[] test1 = {1,2,3};
-		int[] test2 = {2,4,6};
-		MeasureLog ml1 = new MeasureLog(test1); //part of facade to turn int[] into MeasureLog
-		MeasureLog ml2 = new MeasureLog(test2);
-
-		c.addMeasuresContainer(ml1);
- 		c.addMeasuresContainer(ml2);
- 		
+//		Container c = new Container("123");
+//		//Journey j = new Journey("Copenhagen","London","Bananas","DSV");
+//		Client client = new Client();
+//		//Container c = new Container(client);
+//		//Journey j = new Journey(c.getContainerID(),"customerIDplaceholder","Copenhagen","London","Bananas","DSV");
+//		//c.addJourney(j);
+//		int[] test1 = {1,2,3};
+//		int[] test2 = {2,4,6};
+//		MeasureLog ml1 = new MeasureLog(test1); //part of facade to turn int[] into MeasureLog
+//		MeasureLog ml2 = new MeasureLog(test2);
+//
+//		c.addMeasuresContainer(ml1);
+// 		c.addMeasuresContainer(ml2);
+// 		
 
  		
  		//Journey j2 = new Journey("Copenhagen","London","Bananas","DSV");
  		//c.addJourney(j2);
  		//c.addMeasuresContainer(ml2);
- 		
-		System.out.println(c.getMeasures());
-		
-		System.out.println(c.getMeasures().get(0).get(0).getMeasure("temperature"));
-		// journeyID(abc1234):
-		//    				 Temp | Humi | Atmo | time
-		// JourneyID:	 	 10	  | 20   | 102
-		// JourneyID:		 12	  | 2  | 101
+// 		
+//		System.out.println(c.getMeasures());
+//		
+//		System.out.println(c.getMeasures().get(0).get(0).getMeasure("temperature"));
+//		// journeyID(abc1234):
+//		//    				 Temp | Humi | Atmo | time
+//		// JourneyID:	 	 10	  | 20   | 102
+//		// JourneyID:		 12	  | 2  | 101
 		// 
 	}
 	
