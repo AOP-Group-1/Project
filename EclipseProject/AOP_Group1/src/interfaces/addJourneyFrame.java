@@ -88,17 +88,20 @@ public class addJourneyFrame extends JFrame {
 					}
 					if (allFilled) {
 						List<Container> containerList = new ArrayList<Container>();
-						JTable table = AvaibleContainersTableModel.Table();
+//						JTable table = AvaibleContainersTableModel.Table();
+						JTable table = AvaibleContainersTableModel.tblInventory;
 						int nRows = table.getModel().getRowCount();
 						System.out.println("n of rows: " + nRows);
 						for (int i = 0; i < nRows; i++) {
 							if ((boolean) table.getValueAt(i, 1)) {
 								containerList.add((Container) table.getValueAt(i, 0)); //add the selected containers to the list
 							}
+							
 						}
 						for (Container container : containerList) {				
 							//(Container container, String origin, String destination, String contentType,
 							//String company)
+							System.out.println("Registered journey");
 							Journey j = new Journey(container, origin.getText(), destination.getText(), contentType.getText(), currentClient.getName());
 							j.registerJourney();
 							System.out.println("addJourneyFrame: " + container);
@@ -106,6 +109,7 @@ public class addJourneyFrame extends JFrame {
 							container.addJourney(j);
 							currentClient.addContainer(container);
 						}
+						dispose();
 						
 						
 						

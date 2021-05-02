@@ -41,13 +41,14 @@ public class viewJourneysFrame extends JFrame {
 	}
 	
 	static String[] columns = new String[] {
-            "JourneyID"
+            "JourneyID" , "Origin", "Destination", "Content Type"
         };
 	
 	
 	
 	public viewJourneysFrame(Container container) {
 		//List<Journey> jl = container.getJourneys();
+		setTitle("Container's journeys");
 		wipeData();
 		loadData(container);
 		
@@ -56,9 +57,12 @@ public class viewJourneysFrame extends JFrame {
 		if (loadedData != null) {
 			
 			
-        	Object[][] tableData = new Object[loadedData.length][1];
+        	Object[][] tableData = new Object[loadedData.length][4];
         	for ( int i = 0; i < loadedData.length; i++ ){
         	    tableData[i][0] = loadedData[i];
+        	    tableData[i][1] = ((Journey) loadedData[i]).getOrigin();
+        	    tableData[i][2] = ((Journey) loadedData[i]).getDestination();
+        	    tableData[i][3] = ((Journey) loadedData[i]).getContentType();
         	}
         	DefaultTableModel tableModel = new DefaultTableModel(tableData,columns) {
         		
@@ -100,8 +104,8 @@ public class viewJourneysFrame extends JFrame {
 		
 		
 		}
+		setLocationRelativeTo(null);
 		pack();
-		
 		
 		
 		

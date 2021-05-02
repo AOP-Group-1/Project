@@ -10,6 +10,7 @@ import java.util.List;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -85,7 +86,7 @@ public class updateJourneyFrame extends JFrame {
 	}
 	
 	public updateJourneyFrame() {
-		
+		setTitle("Update Journey");
 
 		Object[] loadedData = loadClients();
 		
@@ -123,7 +124,7 @@ public class updateJourneyFrame extends JFrame {
 		//https://stackoverflow.com/questions/11093326/restricting-jtextfield-input-to-integers
 		
 
-		JTextField updatedLocationField = new JTextField(20);		
+		JTextField updatedLocationField = new JTextField(10);		
 		
 		//
 		
@@ -188,14 +189,17 @@ public class updateJourneyFrame extends JFrame {
 				
 			});
 		
+		JLabel updatedLocationLabel= new JLabel("Enter updated location");
+		
 		JPanel panel = new JPanel(new BorderLayout());
 		add(panel, BorderLayout.SOUTH);
 		panel.add(btnConfirm,BorderLayout.EAST);
+		panel.add(updatedLocationLabel, BorderLayout.CENTER);
 		panel.add(updatedLocationField,BorderLayout.WEST);
 		
     	add(js);
     	pack();
-		setLocationRelativeTo(null);
+		
     	
 		
 	}

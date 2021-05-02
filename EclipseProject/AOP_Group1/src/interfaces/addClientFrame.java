@@ -33,8 +33,9 @@ public class addClientFrame extends JFrame {
 			toFront();
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			setSize(new Dimension(310, 230));
-			setTitle("Edit info");
+			setTitle("Add Client");
 			setLayout(new GridBagLayout());
+			
 			
 			Name = new JTextField(20);
 			Password = new JTextField(20);
@@ -118,12 +119,12 @@ public class addClientFrame extends JFrame {
 			add(btnConfirm, Grid.constraint(1, 6, 5));
 			
 			pack();
-			setLocationRelativeTo(null);
 		}
 		
 		public static void showAddClientFrame() {
 			addClientFrame window = new addClientFrame();
 			window.setVisible(true);
+			window.toFront();
 			
 		}
 	

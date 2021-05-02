@@ -102,9 +102,10 @@ public class editUserInfoFrame extends JFrame {
 		setLocationRelativeTo(null);
 	}
 	
-	public static void test() {
-		editUserInfoFrame test = new editUserInfoFrame();
-		test.setVisible(true);
+	public static void showEditUserFrame() {
+		editUserInfoFrame window = new editUserInfoFrame();
+		window.setVisible(true);
+		window.setAlwaysOnTop(true);;
 		
 	}
 	

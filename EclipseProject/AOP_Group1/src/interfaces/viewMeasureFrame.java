@@ -52,6 +52,7 @@ public class viewMeasureFrame extends JFrame {
 		wipeData();
 		loadData(journey);
 		
+		setTitle("Journey's measures");
 		
 		
 		if (loadedData != null) {
@@ -107,6 +108,7 @@ public class viewMeasureFrame extends JFrame {
 		
 		
 		}
+		setLocationRelativeTo(null);
 		pack();
 		
 		

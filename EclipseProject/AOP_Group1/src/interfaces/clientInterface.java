@@ -66,6 +66,8 @@ public class clientInterface extends JFrame{
 				btnContainers.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
+						
+						ClientController.clientLoader(); //attempt
 						myTableModel.wipeData();
 						myTableModel.loadData(currentClient);
 						
@@ -73,6 +75,7 @@ public class clientInterface extends JFrame{
 						//Reload this data after having added a journey
 						
 						JTable table = myTableModel.Table();
+						
 						JScrollPane jsPane = new JScrollPane(table);
 						add(jsPane, BorderLayout.CENTER);
 						table.setFillsViewportHeight(true);
@@ -101,6 +104,7 @@ public class clientInterface extends JFrame{
 						AvailableContainerFrame.showAvailableContainers();
 						setVisible(true);
 						
+						
 //						//addJourneyFrame.openAddJourneyWindow();
 						//setVisible(true);
 						//Add checks to see if origin and destination are actual countries
@@ -111,7 +115,7 @@ public class clientInterface extends JFrame{
 				btnAEditInfo.addActionListener(new ActionListener() {
 					@Override
 					public void actionPerformed(ActionEvent e) {
-						editUserInfoFrame.test();
+						editUserInfoFrame.showEditUserFrame();
 						setVisible(true);
 						// pop-up window with 5 buttons to edit basic user info
 						// Name, Password, Email, Address, Reference Person

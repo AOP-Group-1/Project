@@ -35,16 +35,16 @@ public class AvailableContainerFrame extends JFrame {
 	//https://stackoverflow.com/questions/4765469/how-to-retrieve-jtable-data-as-an-array
 
 	public static Object[][] getTableData (JTable table) {
-		if (table.isEditing()) {
-			table.getCellEditor().stopCellEditing();
-		}
+//		if (table.isEditing()) {
+//			table.getCellEditor().stopCellEditing();
+//		}
 	    TableModel dtm = table.getModel();
 	    int nRow = dtm.getRowCount(), nCol = dtm.getColumnCount();
 	    Object[][] tableData = new Object[nRow][nCol];
 	    for (int i = 0 ; i < nRow ; i++)
 	        for (int j = 0 ; j < nCol ; j++) {
-	            tableData[i][j] = dtm.getValueAt(i,j);
-	    		System.out.println("cell loaded: " + dtm.getValueAt(i, j));
+	            tableData[i][j] = table.getValueAt(i,j);
+	    		System.out.println("cell loaded: " + table.getValueAt(i, j));
 	        }
 	    return tableData;
 	}
@@ -63,6 +63,7 @@ public class AvailableContainerFrame extends JFrame {
 		//buttons
 
 		
+		JTable table = AvaibleContainersTableModel.Table();
 		
 //		AvaibleContainersTableModel.wipeData(); 
 //		AvaibleContainersTableModel.loadData();
@@ -73,14 +74,14 @@ public class AvailableContainerFrame extends JFrame {
 				//check if there is any container selected from the table
 				setAlwaysOnTop(false);
 					
-				JTable table = AvaibleContainersTableModel.Table();
-				Object[][] tableData = getTableData(table);
+//				Object[][] tableData = getTableData(table);
+				Object[][] tableData = getTableData(AvaibleContainersTableModel.tblInventory); //WORKS
 				boolean noMarks = false;
 				//check if this works
 				
 				for (Object[] row : tableData) {
 					//doesn't accurately check the checkbox BUG
-					//System.out.println("availablecontainer" + row[1]);
+					System.out.println("availablecontainer marks: " + row[1]);
 					noMarks = noMarks || ((boolean) row[1]) ;
 //					System.out.println(row[0]);
 //					System.out.println(row[1]);
@@ -114,12 +115,18 @@ public class AvailableContainerFrame extends JFrame {
 	// "Available containers" is not properly updated / loaded after sending containers on journeys. 
 	static AvailableContainerFrame window;
 	public static void showAvailableContainers() {
-	if (window == null)	{	
+		
 		window = new AvailableContainerFrame();
 		window.setVisible(true);
-	}
-	else
-		window.setVisible(true);
+		
+//	if (window == null)	{	
+//		AvaibleContainersTableModel.wipeData();
+//		window = new AvailableContainerFrame();
+//		window.setVisible(true);
+//	}
+//		window.revalidate();
+//		window.repaint();
+//		window.setVisible(true);
 	
 	}
 	
@@ -141,8 +148,8 @@ class AvaibleContainersTableModel extends DefaultTableModel {
 	
 	
 	
-	static Object[] loadedData;
 	static List<Container> tempStorage = new ArrayList<Container>();
+	static Object[] loadedData = null;
 	
 	public static void loadData() {
 		tempStorage = AvailableContainerController.availableContainers();
@@ -176,9 +183,8 @@ class AvaibleContainersTableModel extends DefaultTableModel {
  	
     public static JTable Table(){ //was a component before
     	//singleton pattern
-    	wipeData();
-    	loadData();
-    	if (tblInventory == null) {
+//    	wipeData();
+//    	loadData();
     		
 //	    	if (loadedData != null) {
 	        	Object[][] tableData = new Object[loadedData.length][2];
@@ -190,6 +196,13 @@ class AvaibleContainersTableModel extends DefaultTableModel {
 	        	tblInventory.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	        	//AvaibleContainersTableModel tableModel = new AvaibleContainersTableModel();
 	        	DefaultTableModel tableModel = new DefaultTableModel(tableData,columns) {
+	        		
+	        		@Override
+	        	    public boolean isCellEditable(int row, int column) {
+	        	       //all cells false
+	        	       return column == 1;
+	        	    }
+	        		
 	        		@Override
 	        	    public Class<?> getColumnClass(int columnIndex) {
 	        	      Class clas = String.class;
@@ -208,11 +221,12 @@ class AvaibleContainersTableModel extends DefaultTableModel {
 	            		int row = e.getFirstRow();
 	            		int column = e.getColumn();
 	            		System.out.println("(availablecontainers) Clicked");
-	//            		System.out.println(tableData[row][1]);
+	//            		System.out.println(tableData[row][1]);	            		
 	            		System.out.println(tblInventory.getValueAt(row, column));
-	            		
-	            		//tblInventory.setValueAt(! (boolean) tblInventory.getValueAt(row, column), row, column);
-	            		//tableData[row][1] = (! (boolean) tableData[row][1]);
+
+//	            		tableModel.setValueAt(! (boolean) tableModel.getValueAt(row, column), row, column);
+//	            		tableData[row][1] = (! (boolean) tableData[row][1]);
+//	            		tblInventory.setValueAt(e, row, column);
 	            	}
 	        		
 	        	});
@@ -230,7 +244,5 @@ class AvaibleContainersTableModel extends DefaultTableModel {
 	    	
 	    	}
 //	    	return new JTable(); }
-    	else 
-    		return tblInventory;
-    }
-}
+    	
+ }

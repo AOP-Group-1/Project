@@ -13,6 +13,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -72,7 +73,7 @@ public class addContainerFrame extends JFrame {
 	
 	
 	public addContainerFrame() {
-		
+		setTitle("Add Containers");
 		Object[] loadedData = loadClients();
 		
 		Object[][] tableData = new Object[loadedData.length][5];
@@ -154,9 +155,12 @@ public class addContainerFrame extends JFrame {
 			}
 		});
 		
+		JLabel nContainerLabel= new JLabel("Number of containers to add");
+		
 		JPanel panel = new JPanel(new BorderLayout());
 		add(panel, BorderLayout.SOUTH);
 		panel.add(btnConfirm,BorderLayout.EAST);
+		panel.add(nContainerLabel,BorderLayout.CENTER);
 		panel.add(nContainerField,BorderLayout.WEST);
 		
     	add(js);
@@ -192,29 +196,4 @@ public class addContainerFrame extends JFrame {
 }
 
 
-// class for having a textfield only for numbers
-// https://stackoverflow.com/a/20979484
-class NumberField extends JTextField {
-
-	
-	public NumberField(int i) {
-		super(i);
-	}
-
-@Override
-protected Document createDefaultModel() {
-    return new Numberdocument();
-}
-
-class Numberdocument extends PlainDocument {
-    String numbers="1234567890-";
-    @Override
-    public void insertString(int offs, String str, AttributeSet a)
-            throws BadLocationException {
-        if(numbers.contains(str)) {
-        	super.insertString(offs, str, a);
-        }
-       
-    }
-}}
 

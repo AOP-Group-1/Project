@@ -12,6 +12,7 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -93,7 +94,9 @@ public static Object[] loadClients() {
 
 	public AddMeasurementFrame() {
 		
-	
+		JPanel panel = new JPanel(new GridBagLayout());
+		
+	    setTitle("Add Measurements");
 		Object[] loadedData = loadClients();
 		
 		Object[][] tableData = new Object[loadedData.length][8];
@@ -131,9 +134,9 @@ public static Object[] loadClients() {
 		
 
 		List<JTextField> textFields = new ArrayList<JTextField>();
-		JTextField temperature = new JTextField(20);		
-		JTextField humidity = new JTextField(20);
-		JTextField pressure = new JTextField(20);
+		NumberField temperature = new NumberField(20);		
+		NumberField humidity = new NumberField(20);
+		NumberField pressure = new NumberField(20);
 		textFields.add(temperature);
 		textFields.add(humidity);
 		textFields.add(pressure);
@@ -179,6 +182,7 @@ public static Object[] loadClients() {
 			        	
 						if (!allFilled) { //check if any text fields are blank
 							//Popup warning here
+							JOptionPane.showMessageDialog(panel, "Please fill out all the fields", "Error", JOptionPane.ERROR_MESSAGE);
 
 						}
 						else {
@@ -218,7 +222,7 @@ public static Object[] loadClients() {
 		
 		
 		
-		JPanel panel = new JPanel(new GridBagLayout());
+		//JPanel panel = new JPanel(new GridBagLayout());
 		add(panel, BorderLayout.SOUTH);
 		panel.add(btnConfirm,Grid.constraint(1, 6,5));
 		
@@ -232,7 +236,7 @@ public static Object[] loadClients() {
 		
 		add(js);
 		pack();
-		setLocationRelativeTo(null);
+		
 		
 		
 	}

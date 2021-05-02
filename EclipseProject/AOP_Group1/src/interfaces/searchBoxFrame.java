@@ -28,7 +28,7 @@ public class searchBoxFrame extends JFrame {
 			toFront();
 			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 			setPreferredSize(new Dimension(310, 230));
-			setTitle("Edit info");
+			setTitle("Search Client");
 			setLayout(new GridBagLayout());
 			
 			Id = new JTextField(20);
