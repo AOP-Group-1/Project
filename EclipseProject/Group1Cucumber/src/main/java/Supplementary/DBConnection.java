@@ -1,4 +1,4 @@
-package mainFeatures;
+package Supplementary;
 import java.sql.Connection;
 import java.sql.*;
 import java.sql.DriverManager;

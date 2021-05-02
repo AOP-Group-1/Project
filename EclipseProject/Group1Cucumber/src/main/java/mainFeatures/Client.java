@@ -2,6 +2,8 @@ package mainFeatures;
 import java.sql.ResultSet;
 import java.util.*;
 
+import Supplementary.DBConnection;
+
 
 public class Client {
 		
@@ -36,7 +38,7 @@ public class Client {
 		containers.add(newContainer);
 	}
 	
-	//should be tested :)
+	
 	public Container[] getContainers() {
 		Container[] res = {null};
 		if (containers == null) {
@@ -156,32 +158,32 @@ public class Client {
 		return rs;
 	}
 	
-	@Override
-	public boolean equals(Object o) {
-		if(o instanceof Client) {
-			Client m1=(Client) o;
-			if(this.ID==m1.ID) {
-				return true;
-			}else {
-				return false;
-			}
-		}
-		return false;
-	}
+//	@Override
+//	public boolean equals(Object o) {
+//		if(o instanceof Client) {
+//			Client m1=(Client) o;
+//			if(this.ID==m1.ID) {
+//				return true;
+//			}else {
+//				return false;
+//			}
+//		}
+//		return false;
+//	}
 	
 	
-	public static void main(String[] args) {
-		Client client1 = new Client();
-		client1.setName("Sony");
-		client1.setPassword("sonyIsBest");
-		client1.setAddress("Japan");
-		client1.setEmail("Sony@Sony.com");
-		client1.setRefPer("Hasuki sushi");
-		client1.registerClient();
-		//System.out.println(client1.test.isEmpty());
-		
-	}
-	
-	
+//	public static void main(String[] args) {
+//		Client client1 = new Client();
+//		client1.setName("Sony");
+//		client1.setPassword("sonyIsBest");
+//		client1.setAddress("Japan");
+//		client1.setEmail("Sony@Sony.com");
+//		client1.setRefPer("Hasuki sushi");
+//		client1.registerClient();
+//		//System.out.println(client1.test.isEmpty());
+//		
+//	}
+//	
+//	
 }
 

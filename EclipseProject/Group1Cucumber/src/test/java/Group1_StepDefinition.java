@@ -1,14 +1,17 @@
 import static org.junit.Assert.assertEquals;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
+import Supplementary.DBConnection;
+import dataLoaders.ContainerLoader;
 import dataLoaders.MeasureLoader;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import mainFeatures.Client;
 import mainFeatures.Container;
-import mainFeatures.DBConnection;
 import mainFeatures.Journey;
 import mainFeatures.MeasureLog;
 
@@ -24,6 +27,8 @@ public class Group1_StepDefinition {
 	String container_to_check;
 	Container container2 = new Container(client1);
 	DBConnection dbcon = new DBConnection();
+	Client client2;
+	Container container3;
 	
 	//Register client
 	@Given("a new client with information")
@@ -91,6 +96,17 @@ public class Group1_StepDefinition {
 	    Client.searchForClient(null, email, null, null, null);
 	}
 	
+	//Search for multiple client info
+	@Given("a need for client info")
+	public void a_need_for_client_info() {
+	    //Empty
+	}
+
+	@Then("the company searches for mulitple info")
+	public void the_company_searches_for_mulitple_info() {
+	    Client.searchForClient(client1.getID(), client1.getEmail(), client1.getName(), client1.getAddress(), client1.getRefPer());
+	}
+	
 	//Unsuccessful search for client info
 	@Given("a need for seeing client info related to client email_")
 	public void a_need_for_seeing_client_info_related_to_client_email_() {
@@ -102,12 +118,23 @@ public class Group1_StepDefinition {
 	    Client.searchForClient(null, null, null, null, null);
 	}
 	
+	@Given("a need to know all clients")
+	public void a_need_to_know_all_clients() {
+	    //Empty
+	}
+
+	@Then("the company searches for all clients")
+	public void the_company_searches_for_all_clients() {
+	    Client.findAllClients();
+	}
+	
 	
 	//Register container for journey
 	@Given("a container")
 	public void a_container() {
 	    Container container1 = new Container(client1);
 	    this.container1 = container1;
+	    container1.registerContainer();
 	}
 	
 	@Then("the client registers it for a journey")
@@ -135,6 +162,36 @@ public class Group1_StepDefinition {
 	@Then("the client searches for the container ID")
 	public void the_client_searches_for_the_container_ID() {
 	    Journey.searchForJourney(null, container1.getContainerID(), null, null, null, null, null, null, null, null);
+	}
+	
+	//Track container with multiple input
+	@Given("a search for mulitple input")
+	public void a_search_for_mulitple_input() {
+	    Journey.searchForJourney(journey1.getJourneyID(), journey1.getContainerID(), journey1.getClientID(), journey1.getOrigin(), journey1.getDestination(), journey1.getContentType(), journey1.getCompany(), "01-01-2020", "12-01-2020", "true");
+	}
+	
+	//Track uncompleted journeys
+	@Given("a search for an uncompleted journey")
+	public void a_search_for_an_uncompleted_journey() {
+	    Journey.searchForJourney(null, null, null, null, null, null, null, null, null, "false");
+	}
+	
+	//Checking container availability
+	@Given("a need for a container")
+	public void a_need_for_a_container() {
+		Journey journey2 = new Journey(container1,"origin","destination","content type", "company");
+	    journey2.setComplete(true);
+	    container1.addJourney(journey2);
+		
+		
+		
+	}
+
+	@Then("the client checks container availability")
+	public void the_client_checks_container_availability() {
+		assertEquals(container1.notOnJourney(), true);
+		
+		
 	}
 	
 	//Logging internal container measurements
@@ -191,17 +248,19 @@ public class Group1_StepDefinition {
 	    assertEquals(container2.notOnJourney(), true);
 	}
 	
-	
-	//Check a containers log history
-	@Given("a container_")
-	public void a_container_() {
-	    //using container1
+	@Given("a container with a journey")
+	public void a_container_with_a_journey() {
+	    container1.addJourney(journey1);
 	}
+
 
 	@Then("the company searches for the measurement history")
 	public void the_company_searches_for_the_measurement_history() {
-	    
+	    for(int i = 0; i < container1.getJourneys().size(); i++) {
+	    	container1.getJourneys().get(i).getMeasure();
+	    }
 	}
+	
 	
 	//Managing database connection
 	@Given("a need for the program")
@@ -215,8 +274,38 @@ public class Group1_StepDefinition {
 	    this.dbcon = dbcon;
 	}
 
-	@Then("later closed")
-	public void later_closed() {
+	@Then("later closed properly")
+	public void later_closed_properly() {
 	    dbcon.closeConnection();
+	}
+	
+	//Loading properly from database
+	@Given("a request for data in database")
+	public void a_request_for_data_in_database() {
+	    Client client2 = new Client();
+	    this.client2 = client2;
+	    Container container3 = new Container(client2);
+	    this.container3 = container3;
+	    container3.registerContainer();
+	    
+	}
+
+	@Then("data is loaded")
+	public void data_is_loaded() {
+		System.out.println(client2.getID());
+		ResultSet rs = ContainerLoader.searchForContainer(client2.getID());
+		try {
+			if (rs.next()) {
+				String loadedContainerID = rs.getString("Containerid");
+				Container container4 = new Container(client2, loadedContainerID);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+				
+				
 	}
 }

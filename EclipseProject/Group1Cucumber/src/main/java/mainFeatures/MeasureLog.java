@@ -2,6 +2,8 @@ package mainFeatures;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import Supplementary.DBConnection;
+
 
 /*Feature:
  * - Contains a set of measures (3 integers) and time (1 string)
@@ -52,13 +54,13 @@ public class MeasureLog {
 		return time;
 	}
 	
-	// Needs to be tested Oscar :D
+	
 	public void replaceTime (String newTime) { //solely used when loading the measureLog from database
 		this.time = newTime;
 	}
 	
 	
-	public static void main(String[] args) {
+//	public static void main(String[] args) {
 //		int[] test1 = {1,2,4};
 //		
 //		
@@ -66,5 +68,5 @@ public class MeasureLog {
 //		
 //		System.out.println(ML.getMeasure("Time"));
 //		System.out.println(ML.getTime());
-	}
+//	}
 }

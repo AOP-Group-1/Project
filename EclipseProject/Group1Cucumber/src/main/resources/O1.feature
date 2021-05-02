@@ -21,5 +21,5 @@ Feature: Checking the history of statuses of a container
 
   @tag1
   Scenario: Checking a containers measurement history
-    Given a container_
+    Given a container with a journey
     Then the company searches for the measurement history

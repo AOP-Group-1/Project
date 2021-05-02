@@ -37,9 +37,17 @@ Feature: Client management
 		Given a need for seeing client info related to client email
 		Then the company searches using the email
 		
+	Scenario: Search for mulitple inputs
+		Given a need for client info
+		Then the company searches for mulitple info
+		
 	Scenario: Unsuccessful search for client
 		Given a need for seeing client info related to client email_
 		Then the company searches using nothing
+		
+	Scenario: Searching for all clients
+		Given a need to know all clients
+		Then the company searches for all clients
 
 
 

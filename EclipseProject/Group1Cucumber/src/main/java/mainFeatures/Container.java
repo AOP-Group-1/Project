@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import Supplementary.DBConnection;
+
 /* Features:
  * - Creates ContainerID
  * - Gets ContainerID
@@ -81,23 +83,23 @@ public class Container {
 	}
 
 	
-	public void addMeasuresContainer (MeasureLog measures) { //construct a MeasureLog object from an int[] in the facade
-		int numOfJourneys = jl.size();
-		if (numOfJourneys <= 0) {
-			return; //Give user a warning that container has no journeys yet.
-		}
-		jl.get(numOfJourneys - 1).addMeasureJourney(measures); //add the measurements to the current journey
-		
-		
-		//uploading to database was moved to the MeasureLog.registerMeasureLog's responsibility
-//		String sql = String.format("insert into container_status (journeyid, Internal_temperature, Humidity, Atmospheric_pressure, Time) values(\"%s\",%d,%d,%d,\"%s\");", 
-//				jl.get(numOfJourneys - 1).getJourneyID(), measures.getMeasure("temperature"), 
-//														  measures.getMeasure("humidity"), 
-//														  measures.getMeasure("pressure"),
-//														  measures.getTime());
-//		DBConnection db = new DBConnection(); 
-//		db.update(sql); //update database with new measurements
-	}
+//	public void addMeasuresContainer (MeasureLog measures) { //construct a MeasureLog object from an int[] in the facade
+//		int numOfJourneys = jl.size();
+//		if (numOfJourneys <= 0) {
+//			return; //Give user a warning that container has no journeys yet.
+//		}
+//		jl.get(numOfJourneys - 1).addMeasureJourney(measures); //add the measurements to the current journey
+//		
+//		
+//		//uploading to database was moved to the MeasureLog.registerMeasureLog's responsibility
+////		String sql = String.format("insert into container_status (journeyid, Internal_temperature, Humidity, Atmospheric_pressure, Time) values(\"%s\",%d,%d,%d,\"%s\");", 
+////				jl.get(numOfJourneys - 1).getJourneyID(), measures.getMeasure("temperature"), 
+////														  measures.getMeasure("humidity"), 
+////														  measures.getMeasure("pressure"),
+////														  measures.getTime());
+////		DBConnection db = new DBConnection(); 
+////		db.update(sql); //update database with new measurements
+//	}
 	
 	@Override
 	public String toString() {
@@ -106,16 +108,16 @@ public class Container {
 	
 	
 
-	public List<List<MeasureLog>> getMeasures () { //function to get all measures from a container
-		List<List<MeasureLog>> res = new ArrayList<List<MeasureLog>>();
-		for(int i = 0; i < jl.size(); i++) {
-			res.add(jl.get(i).getMeasure());	
-		}
-		return res;
-	}
+//	public List<List<MeasureLog>> getMeasures () { //function to get all measures from a container
+//		List<List<MeasureLog>> res = new ArrayList<List<MeasureLog>>();
+//		for(int i = 0; i < jl.size(); i++) {
+//			res.add(jl.get(i).getMeasure());	
+//		}
+//		return res;
+//	}
+//	
 	
-	
-	public static void main(String[] args) {
+//	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 //		Container c = new Container("123");
 //		//Journey j = new Journey("Copenhagen","London","Bananas","DSV");
@@ -145,6 +147,6 @@ public class Container {
 //		// JourneyID:	 	 10	  | 20   | 102
 //		// JourneyID:		 12	  | 2  | 101
 		// 
-	}
+//	}
 	
 }

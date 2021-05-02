@@ -1,6 +1,6 @@
 package dataLoaders;
 
-import mainFeatures.DBConnection;
+import Supplementary.DBConnection;
 
 public class JourneyUpdater {
 

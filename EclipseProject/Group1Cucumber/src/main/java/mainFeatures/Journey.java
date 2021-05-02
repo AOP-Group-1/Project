@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.UUID;
 import com.mysql.cj.jdbc.result.ResultSetMetaData;
 
+import Supplementary.DBConnection;
+
 
 public class Journey {
 	private String journeyID;
@@ -176,23 +178,23 @@ public class Journey {
 		return rs;
 
 	}
-	@Override
-	public boolean equals(Object o) {
-		if(o instanceof Journey) {
-			Journey j=(Journey) o;
-			if(this.journeyID==j.journeyID) {
-				return true;
-			}else {
-				return false;
-			}
-		}
-		return false;
-	}
+//	@Override
+//	public boolean equals(Object o) {
+//		if(o instanceof Journey) {
+//			Journey j=(Journey) o;
+//			if(this.journeyID==j.journeyID) {
+//				return true;
+//			}else {
+//				return false;
+//			}
+//		}
+//		return false;
+//	}
 	
-	public ResultSet showTravelHistory(String containerid) {
-		ResultSet rs=searchForJourney(null,containerid,null,null,null,null,null,null,null,null);
-		return rs;
-	}
+//	public ResultSet showTravelHistory(String containerid) {
+//		ResultSet rs=searchForJourney(null,containerid,null,null,null,null,null,null,null,null);
+//		return rs;
+//	}
 	
 	//O1 features
 	 //O1
@@ -221,31 +223,31 @@ public class Journey {
 	
 	
 
-	public static void main(String[] args) {
-		Client client1 = new Client();
-		client1.setAddress("DTU");
-		client1.setEmail("dtu@dtu");
-		client1.setName("Sofaer");
-		client1.setRefPer("bananaPerson");
-		client1.setPassword("banana");
-		client1.registerClient();
-		client1.editInfo("maroon","Name");
-		Container container1 = new Container(client1);
-		container1.registerContainer();
-		Journey j1 = new Journey(container1,"denmark","us","banana","bancorp");
-		j1.setComplete(true);
-		j1.registerJourney();
- 		
-		MeasureLog ml = new MeasureLog(new int[] {5,2,4});
-		ml.registerMeasureLog(j1);
-		j1.addMeasureJourney(ml);
-		
-		MeasureLog ml2 = j1.getMeasure().get(0);
-		System.out.println(ml2.getMeasure("temperature"));
-		
-		
-		
-		System.out.println(container1);
+//	public static void main(String[] args) {
+//		Client client1 = new Client();
+//		client1.setAddress("DTU");
+//		client1.setEmail("dtu@dtu");
+//		client1.setName("Sofaer");
+//		client1.setRefPer("bananaPerson");
+//		client1.setPassword("banana");
+//		client1.registerClient();
+//		client1.editInfo("maroon","Name");
+//		Container container1 = new Container(client1);
+//		container1.registerContainer();
+//		Journey j1 = new Journey(container1,"denmark","us","banana","bancorp");
+//		j1.setComplete(true);
+//		j1.registerJourney();
+// 		
+//		MeasureLog ml = new MeasureLog(new int[] {5,2,4});
+//		ml.registerMeasureLog(j1);
+//		j1.addMeasureJourney(ml);
+//		
+//		MeasureLog ml2 = j1.getMeasure().get(0);
+//		System.out.println(ml2.getMeasure("temperature"));
+//		
+//		
+//		
+//		System.out.println(container1);
 		
  		
  		
@@ -267,7 +269,7 @@ public class Journey {
 //		String location2=j.getCurrentLocation("1597f12b-ac0f-45a7-90c9-5ac3833bdfc7");
 //		System.out.println("current location:"+location2);
 		
-	}
+//	}
 }
 
 

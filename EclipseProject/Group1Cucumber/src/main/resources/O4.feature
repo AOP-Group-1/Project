@@ -20,8 +20,11 @@
 Feature: Managing database connection
 
   @tag1
-  Scenario: Connecting/unconnecting
+  Scenario: Unconnecting when closing
     Given a need for the program
     Then program is started
-    And later closed
+    And later closed properly
 
+	Scenario: Load data correctly into program
+		Given a request for data in database
+		Then data is loaded

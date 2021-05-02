@@ -29,3 +29,13 @@ Feature: Registering containers for journeys
   Scenario: Track container
   	Given a container on a journey;
   	Then the client searches for the container ID
+  	
+  Scenario: Track container with multiple input
+  	Given a search for mulitple input
+  	
+  Scenario: Searching for uncompleted journeys
+  	Given a search for an uncompleted journey
+  	
+  Scenario: Check availability for container
+  	Given a need for a container
+  	Then the client checks container availability

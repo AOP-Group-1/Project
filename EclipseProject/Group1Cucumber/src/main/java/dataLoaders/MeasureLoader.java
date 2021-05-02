@@ -2,7 +2,7 @@ package dataLoaders;
 
 import java.sql.ResultSet;
 
-import mainFeatures.DBConnection;
+import Supplementary.DBConnection;
 
 public class MeasureLoader {
 		public static String prepareStatement (String JourneyID) {
